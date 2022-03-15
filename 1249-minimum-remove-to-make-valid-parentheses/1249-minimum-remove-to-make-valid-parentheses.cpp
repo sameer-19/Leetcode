@@ -1,10 +1,8 @@
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
-        int i,j,n=s.length(),cnt=0;
-        i=0;j=n-1;
+        int i,j,n=s.length();
         stack<int> st;
-        vector<int> v;
         for(i=0;i<n;i++)
         {
             if(s[i]=='(')
