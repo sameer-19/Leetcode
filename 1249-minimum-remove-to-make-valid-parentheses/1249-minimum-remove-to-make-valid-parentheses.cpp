@@ -13,22 +13,21 @@ public:
             }
             else if(s[i]==')')
             {
-                if(st.empty()) continue;
+                if(st.empty()) s[i]='#';
                 else{
-                    v.push_back(st.top());
                     st.pop();
-                    v.push_back(i);
                 }
             }
         }
-        sort(v.begin(),v.end());
+        while(!st.empty())
+        {
+            s[st.top()]='#';
+            st.pop();
+        }
         string res="";
         for(i=0;i<n;i++)
         {
-            if(s[i]>='a' && s[i]<='z') res+=s[i];
-            else if(binary_search(v.begin(),v.end(),i)){
-                res+=s[i];
-            }
+            if(s[i]!='#') res+=s[i];
         }
         return res;
     }
