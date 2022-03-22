@@ -40,19 +40,21 @@ vector<int> Smallestonleft(int a[], int n)
 {
     int i;
     vector<int> ans;
-    map<int,int> mp;
+    set<int> s;
     
     for(i=0;i<n;i++)
     {
-        mp[a[i]]++;
-        auto ptr=mp.find(a[i]);
-        
-        if(ptr==mp.begin()) ans.push_back(-1);
+        auto it=s.lower_bound(a[i]);
+        if(it==s.begin())
+        {
+            ans.push_back(-1);
+        }
         else
         {
-           auto x=prev(ptr,1);
-           ans.push_back(x->first);
+            it--;
+            ans.push_back(*it);
         }
+        s.insert(a[i]);
     }
     return ans;
 }
