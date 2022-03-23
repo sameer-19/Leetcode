@@ -1,40 +1,16 @@
 class Solution {
 public:
-    int brokenCalc(int sv, int tgt) {
-        // if(sv==0) return INT_MAX-1;
-        if(sv==tgt) return 0;
-        if(sv>tgt) return sv-tgt;
-        int ans=0;
-        while(tgt!=sv)
+    int brokenCalc(int startValue, int target) {
+        int result=0;
+        while(target>startValue)
         {
-            ans++;
-            if(tgt%2==0)
-            {
-                if(tgt>sv)
-                {
-                    tgt/=2;
-                }
-                else if(tgt<sv)
-                {
-                    ans--;
-                    ans+=(sv-tgt);
-                    break;
-                }
-            }
+            result++;
+            if(target%2==0)
+                target=target/2;
             else
-            {
-                if(tgt>sv)
-                {
-                    tgt++;
-                }
-                else
-                {
-                    ans--;
-                    ans+=sv-tgt;
-                    break;
-                }
-            }
+                target+=1;
         }
-        return (int)ans;
+        result=result+(startValue-target);
+        return result;
     }
 };
