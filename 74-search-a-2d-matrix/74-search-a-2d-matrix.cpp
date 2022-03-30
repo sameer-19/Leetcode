@@ -10,10 +10,18 @@ public:
                 break;
             }
         }
-        for(int i=0;i<matrix[0].size();i++) 
+        int left=0,right=matrix[0].size()-1;
+        while(left<=right)
         {
-            if(target==matrix[idx][i]) return true;
+            int mid=left+(right-left)/2;
+            if(target==matrix[idx][mid]) return true;
+            else if(target<matrix[idx][mid]) right=mid-1;
+            else left=mid+1;
         }
+        // for(int i=0;i<matrix[0].size();i++) 
+        // {
+        //     if(target==matrix[idx][i]) return true;
+        // }
         return false;
     }
 };
