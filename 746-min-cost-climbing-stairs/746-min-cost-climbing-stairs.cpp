@@ -1,18 +1,19 @@
 class Solution {
 public:
-    int solve(vector<int> cost,int index,int memo[])
-    {
-        if(index==0) return cost[0];
-        if(index==1) return cost[1];
-        if(memo[index]!=0) return memo[index];
-        return memo[index]=min(solve(cost,index-1,memo),solve(cost,index-2,memo))+(index==cost.size() ? 0 : cost[index]);
-    }
-    
     int minCostClimbingStairs(vector<int>& cost) {
-        // Top down Approach
-        int index=cost.size();
-        int memo[1001]={0};
-        int z=solve(cost,index,memo);
-        return z;
+        // bottom up approach
+        int dp[cost.size()+1],i,n=cost.size();
+        dp[0]=cost[0];
+        dp[1]=cost[1];
+        for(i=2;i<=n;i++)
+        {
+            dp[i]=min(dp[i-1],dp[i-2])+(i==n ? 0 : cost[i]);
+        }
+        return dp[n];
+        // // Top down Approach
+        // int index=cost.size();
+        // int memo[1001]={0};
+        // int z=solve(cost,index,memo);
+        // return z;
     }
 };
