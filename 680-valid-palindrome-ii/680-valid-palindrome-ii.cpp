@@ -12,8 +12,8 @@ public:
         
     
     bool validPalindrome(string s) {
-        int i,j,n=s.length(),cnt=0,id1=0,id2=0;
-        i=0;j=n-1;
+        int i,j;
+        i=0;j=s.length()-1;
         while(i<j)
         {
             if(s[i]!=s[j])
