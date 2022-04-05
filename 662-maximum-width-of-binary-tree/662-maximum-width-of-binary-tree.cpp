@@ -12,45 +12,33 @@
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
-        if(root == NULL)
-            return 0;
+        if(!root) return 0;
+        queue<pair<TreeNode*,long long>> q;
         
-        int res = 1;
-        queue<pair<TreeNode*, int>> q;
+        q.push({root,0});
         
-        // I am using intialising list
-        q.push({root, 0});      // also can use make_pair
+        long long ans=0,mn,mx,i;
         
         while(!q.empty())
         {
-            int cnt = q.size();
-            // start is the index of root node for first level
-            int start = q.front().second;
-            int end = q.back().second;
-            
-            res = max(res,end-start + 1);
-            
-            for(int i = 0; i <cnt; ++i)
+            mn=INT_MAX,mx=INT_MIN;
+            long long sz=q.size();
+            long long rel=q.front().second;
+            for(i=0;i<sz;i++)
             {
-                pair<TreeNode*, int> p = q.front();
-                // we will use it while inserting it children
-                // left child will be 2 * idx + 1;
-                // right chils will be 2 * idx + 2;
-                int idx = p.second - start;
-                
+                pair<TreeNode*,long long> p=q.front();
                 q.pop();
+                if(p.second-rel<mn) mn=p.second-rel;
+                if(p.second-rel>mx) mx=p.second-rel;
                 
-                // if  left child exist
-                if(p.first->left != NULL)
-                    q.push({p.first->left, (long long)2 * idx + 1});
+                if(p.first->left) q.push({p.first->left,2*(p.second-rel) +1});
+                if(p.first->right) q.push({p.first->right,2*(p.second-rel) +2});
                 
-                // if right child exist
-                if(p.first->right != NULL)
-                    q.push({p.first->right, (long long) 2 * idx + 2});
             }
+            ans=max(ans,mx-mn+1);
+            
         }
-        
-        return res;
+        return ans;
         
     }
 };
