@@ -11,19 +11,25 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        vector<int> v;
-        ListNode* tmp;
-        tmp=head;
-        while(tmp)
+        ListNode *fast=head,*slow=head,*prev=NULL,*tmp;
+        
+        while(fast and fast->next)
         {
-            v.push_back(tmp->val);
-            tmp=tmp->next;
+            fast=fast->next->next;
+            tmp=slow->next;
+            slow->next=prev;
+            prev=slow;
+            slow=tmp;
         }
-        int n=v.size(),i;
-        for(i=0;i<n/2;i++)
+        slow=(fast ? slow->next : slow); // fast==NULL means even length else odd length linkedList
+        while(slow)
         {
-            if(v[i]!=v[n-i-1]) return false; 
+            if(slow->val!=prev->val) return false;
+            slow=slow->next;
+            prev=prev->next;
         }
         return true;
+        
+        
     }
 };
