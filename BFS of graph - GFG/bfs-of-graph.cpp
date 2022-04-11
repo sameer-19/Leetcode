@@ -11,21 +11,19 @@ class Solution {
         queue<int> q;
         q.push(node);
         
-        ans.push_back(node);
-        
         while(!q.empty())
         {
             int root=q.front();
             q.pop();
+            
+            ans.push_back(root);
             
             for(auto it: adj[root])
             {
                 if(!visited[it])
                 {
                     visited[it]=true;
-                    
-                    ans.push_back(it);
-                    
+        
                     q.push(it);
                 }
             }
