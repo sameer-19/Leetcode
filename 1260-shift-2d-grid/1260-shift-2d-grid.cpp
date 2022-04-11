@@ -3,35 +3,21 @@ public:
     vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {
         int m=grid.size(),n=grid[0].size();
         
-        vector<int> t1(m*n),t2(m*n);
+        vector<vector<int>> res (m, vector<int> (n, 0));
         
-        int i,j,c=0;
-        
-        k=k%(m*n);
-        
-        for(i=0;i<m;i++)
+        for (int i=0;i<m;i++)
         {
-            for(j=0;j<n;j++)
+            for (int j=0;j<n;j++)
             {
-                t1[c++]=(grid[i][j]);
+                int newCol = (j+k)%n;
+                
+                int countWrapArounds = (j+k)/n;
+                
+                int newRow = (i+countWrapArounds)%m;
+                
+                res[newRow][newCol] = grid[i][j];
             }
         }
-        
-        for(i=0;i<(m*n);i++)
-        {
-            t2[(i+k)%(m*n)]=t1[i];
-        }
-        
-        c=0;
-        
-        for(i=0;i<m;i++)
-        {
-            for(j=0;j<n;j++)
-            {
-                grid[i][j]=t2[c++];
-            }
-        }
-        
-        return grid;
+        return res;
     }
 };
