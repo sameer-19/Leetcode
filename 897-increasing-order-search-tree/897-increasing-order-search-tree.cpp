@@ -21,7 +21,6 @@ public:
         
         inorder(root);
         
-        
         return ans->right;
     }
     
