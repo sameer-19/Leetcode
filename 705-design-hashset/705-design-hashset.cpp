@@ -1,23 +1,20 @@
 class MyHashSet {
 public:
-    set<int> st;
+    int arr[1000001];
     MyHashSet() {
-        
+        memset(arr,0,sizeof(arr));
     }
     
     void add(int key) {
-        st.insert(key);
+        arr[key]++;
     }
     
     void remove(int key) {
-        if(st.find(key)!=st.end())
-        {
-            st.erase(key);
-        }
+        if(arr[key]>0) arr[key]=0;
     }
     
     bool contains(int key) {
-        return st.find(key)!=st.end();
+        return arr[key]>0;
     }
 };
 
