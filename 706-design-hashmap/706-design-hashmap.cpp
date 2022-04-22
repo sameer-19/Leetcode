@@ -1,21 +1,22 @@
 class MyHashMap {
 public:
-    int arr[1000005];
+    unordered_map<int,int> mp;
     
     MyHashMap() {
-        memset(arr,-1,sizeof(arr));    
+        // memset(arr,-1,sizeof(arr));    
     }
     
     void put(int key, int value) {
-        arr[key]=value;
+        mp[key]=value;
     }
     
     int get(int key) {
-        return arr[key];
+        if(mp.count(key)) return mp[key];
+        return -1;
     }
     
     void remove(int key) {
-        arr[key]=-1;
+        mp[key]=-1;
     }
 };
 
