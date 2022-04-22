@@ -11,7 +11,19 @@ class Solution
     public:
     int sum(int a , int b)
     {
-        return a+b;
+        int res = 0, c = 0;
+        for(int i=0; i<31; i++) {
+            int bit = 1<<i, curr = 0;
+            if(c == 1) {
+                if(a&bit && b&bit) curr = 1;
+                else if(!(a&bit) && !(b&bit)) curr = 1, c = 0;
+            } else {
+                if(a&bit && b&bit) c = 1;
+                else if(a&bit || b&bit) curr = 1;
+            }
+            if(curr) res |= (1<<i);
+        }
+        return res;
     }
 };
 
