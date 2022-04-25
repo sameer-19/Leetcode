@@ -8,26 +8,6 @@ public:
         
         int m=mat.size(),n=mat[0].size();
         
-//         for(i=0;i<m;i++)
-//         {   
-//             for(j=0;j<n;j++)
-//             {
-//                 int mn=INT_MAX,mx=INT_MIN;
-                
-//                 for(k=0;k<n;k++)
-//                 {
-//                     mn=min(mat[i][k],mn);
-//                 }
-                
-//                 for(k=0;k<m;k++)
-//                 {
-//                     mx=max(mat[k][j],mx);
-//                 }
-                
-//                 if(mn==mx) ans.push_back(mn);
-//             }
-//         }
-        
         for(i=0;i<m;i++)
         {
             int mn=INT_MAX,id1=i,id2=0;
