@@ -6,6 +6,8 @@ public:
         int ans=0;
         int i,sz=a.size();
         
+        
+        // O(indices.size())
         for(i=0;i<sz;i++)
         {
             row[a[i][0]]++;
@@ -14,11 +16,13 @@ public:
         
         int even_col=0,odd_col=0,even_row=0,odd_row=0;
         
+        // O(m)
         for(i=0;i<m;i++) {
             if(row[i]%2==0) even_row++;
             else odd_row++;
         }
         
+        // O(n)
         for(i=0;i<n;i++) {
             if(col[i]%2==0) even_col++;
             else odd_col++;
