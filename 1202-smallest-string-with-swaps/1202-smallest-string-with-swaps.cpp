@@ -18,7 +18,7 @@ public:
         // find all the connected components characters and take all characters and sort them in increasing order
         int i,j,n=s.length();
         
-        vector<int> adj[n+1];
+        vector<int> adj[100005];
         
         for(i=0;i<pairs.size();i++){
             adj[pairs[i][0]].push_back(pairs[i][1]);
@@ -37,7 +37,7 @@ public:
                 for(auto x: v) ct.push_back(s[x]);
                 sort(ct.begin(),ct.end());
                 sort(v.begin(),v.end());
-                int j=0;
+                j=0;
                 while(j<v.size())
                 {
                     s[v[j]]=ct[j];
