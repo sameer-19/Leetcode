@@ -1,26 +1,19 @@
 class Solution {
 public:
     int countNegatives(vector<vector<int>>& a) {
-        int cnt=0,i,j;
+        int cnt=0;
         
         int m=a.size(),n=a[0].size();
         
-        for(i=0;i<m;i++)
+        int row=0,col=n-1;
+        
+        while(row<m)
         {
-            int low=0,high=n-1;
-            int x=INT_MAX;
-            while(low<=high)
-            {
-                int mid=low+(high-low)/2;
-                if(a[i][mid]<0) 
-                {
-                    x=min(x,mid);
-                    high=mid-1;
-                }
-                else low=mid+1;
-            }
-            if(x!=INT_MAX) cnt+=n-x;
+            while(col>=0 && a[row][col]<0) col--;
+            cnt+=n-col-1;
+            row++;
         }
+        
         return cnt;
     }
 };
