@@ -7,10 +7,19 @@ public:
         
         for(i=0;i<m;i++)
         {
-            for(j=0;j<n;j++)
+            int low=0,high=n-1;
+            int x=INT_MAX;
+            while(low<=high)
             {
-                if(a[i][j]<0) cnt++;
+                int mid=low+(high-low)/2;
+                if(a[i][mid]<0) 
+                {
+                    x=min(x,mid);
+                    high=mid-1;
+                }
+                else low=mid+1;
             }
+            if(x!=INT_MAX) cnt+=n-x;
         }
         return cnt;
     }
