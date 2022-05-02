@@ -4,7 +4,7 @@ public:
         
         int i,n=a.size();
         
-        vector<int> suff(n),ans(n);
+        vector<int> suff(n);
         
         int mx=-1;
         
@@ -14,11 +14,6 @@ public:
             mx=max(mx,a[i]);
         }
         
-        for(i=0;i<n;i++)
-        {
-            if(suff[i]>=a[i]) ans[i]=suff[i];
-            else ans[i]=suff[i];
-        }
-        return ans;
+        return suff;
     }
 };
