@@ -1,22 +1,23 @@
 class Solution {
 public:
     int thirdMax(vector<int>& nums) {
-        set<int> s;
-        for(auto x: nums) s.insert(x);
-        
-        if(s.size()>=3) 
-        {
-            int n=s.size(),c=0;
-            for(auto x: s) 
-            {
-                c++;
-                if(c==n-2) return x;
+        long one = LONG_MIN, two = LONG_MIN, three = LONG_MIN;
+        for (int num : nums) {
+            if (num == one || num == two || num == three)
+                continue;
+            
+            if (num > one) {
+                three = two;
+                two = one;
+                one = num;
+            } else if (num > two) {
+                three = two;
+                two = num;
+            } else if (num > three) {
+                three = num;
             }
         }
-        int mx=-1;
         
-        for(auto x: s) mx=x;
-        
-        return mx;
+        return three == LONG_MIN ? one : three;
     }
 };
