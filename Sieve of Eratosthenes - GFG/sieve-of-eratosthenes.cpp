@@ -17,15 +17,19 @@ public:
         
         a[0]=true; a[1]=true;
         
-        for(i=2;i<=n;i++)
+        for(i=2;i*i<=n;i++)
         {
             if(!a[i])
             {
-                ans.push_back(i);
+                // ans.push_back(i);
                 for(j=i*i;j<=n;j+=i) a[j]=true;
             }
         }
         
+        for(i=2;i<=n;i++)
+        {
+            if(!a[i]) ans.push_back(i);
+        }
         return ans;
     }
 };
