@@ -9,6 +9,7 @@ public:
         {
             if(s[i]=='L') cnt--;
             else cnt++;
+            
             if(cnt==0) ans++;
         }
         
