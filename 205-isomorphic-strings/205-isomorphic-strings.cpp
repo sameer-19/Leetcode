@@ -1,32 +1,22 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        map<char,set<char>> mp;
+        int c1[10005];
+        int c2[10005];
         
-        int a[26]={0};
+        memset(c1,-1,sizeof(c1));
+        memset(c2,-1,sizeof(c2));
         
-        int i,n=s.length();
-        
-        for(i=0;i<n;i++)
+        for(int i=0;i<s.length();i++)
         {
-            mp[s[i]].insert(t[i]);
-        }
-        for(auto x: mp)
-        {
-            if(x.second.size()>1) return false;
-        }
-        
-        set<char> st;
-        
-        for(auto x: mp)
-        {
-            for(auto y: x.second)
+            if(c1[s[i]]==-1 and c2[t[i]]==-1)
             {
-                if(st.find(y)==st.end())
-                {
-                    st.insert(y);
-                }
-                else return false;
+                c1[s[i]]=t[i];
+                c2[t[i]]=s[i];
+            }
+            else if(!(c1[s[i]]==t[i] and c2[t[i]]==s[i]))
+            {
+                return false;
             }
         }
         return true;
