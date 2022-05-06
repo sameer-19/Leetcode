@@ -1,8 +1,8 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        int c1[10005];
-        int c2[10005];
+        int c1[256];
+        int c2[256];
         
         memset(c1,-1,sizeof(c1));
         memset(c2,-1,sizeof(c2));
