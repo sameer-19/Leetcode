@@ -40,7 +40,6 @@ public:
         ans+=(x/2)+x%2;
         ans+=(y/2)+y%2;
         
-        
         return ans;
     }
 };
