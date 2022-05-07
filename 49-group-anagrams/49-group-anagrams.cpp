@@ -1,46 +1,26 @@
 class Solution {
 public:
-    vector<vector<string>> groupAnagrams(vector<string>& str) {
-        vector<vector<string>> ans;
-        
-        vector<pair<string,int>> v;
-        
-        int i,j,n=str.size();
-        
-        for(i=0;i<n;i++) v.push_back({str[i],i});
-        
-        for(i=0;i<n;i++)
-        {
-            sort(v[i].first.begin(),v[i].first.end());
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> mp;
+        for (string s : strs) {
+            mp[strSort(s)].push_back(s);
         }
-        sort(v.begin(),v.end());
-        
-        string prev="";
-        int c=0;
-        vector<string> tmp;
-        
-        for(i=0;i<n;i++)
-        {
-            if(v[i].first==prev)
-            {
-                tmp.push_back(str[v[i].second]);
-            }
-            else
-            {
-                if(tmp.size()>0) 
-                {
-                    ans.push_back(tmp);
-                    tmp.clear();
-                }
-                prev=v[i].first;
-                tmp.push_back(str[v[i].second]);
-            }
+        vector<vector<string>> anagrams;
+        for (auto p : mp) { 
+            anagrams.push_back(p.second);
         }
-        // if(tmp.size()>0)
-        // {
-            ans.push_back(tmp);
-        // }
-        
-        return ans;
+        return anagrams;
+    }
+private:
+    string strSort(string s) {
+        int counter[26] = {0};
+        for (char c : s) {
+            counter[c - 'a']++;
+        }
+        string t;
+        for (int c = 0; c < 26; c++) {
+            t += string(counter[c], c + 'a');
+        }
+        return t;
     }
 };
