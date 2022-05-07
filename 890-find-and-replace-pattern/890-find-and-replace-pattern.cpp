@@ -3,16 +3,22 @@ public:
     
     bool match(string& w1, string& w2) 
     {
-        unordered_map<char, char> w1_to_w2, w2_to_w1;
+        unordered_map<char, char> w1_to_w2;
         for(int i = 0; i < size(w1); i++) 
         {
-            if( (w1_to_w2.count(w1[i]) && w1_to_w2[w1[i]] != w2[i]) || 
-                (w2_to_w1.count(w2[i]) && w2_to_w1[w2[i]] != w1[i]) ) 
+            if( (w1_to_w2.count(w1[i]) && w1_to_w2[w1[i]] != w2[i]) ) 
                 return false; 
             else
-                w1_to_w2[w1[i]] = w2[i],
-                w2_to_w1[w2[i]] = w1[i];
+                w1_to_w2[w1[i]] = w2[i];
         }    
+        bool visited[26]={false};
+        
+        for(auto x: w1_to_w2)
+        {
+            if(visited[x.second-'a']) return false;
+            else visited[x.second-'a'] = true;
+        }
+        
         return true;
     }
     
