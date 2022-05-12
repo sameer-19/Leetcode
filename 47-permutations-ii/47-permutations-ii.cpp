@@ -1,38 +1,20 @@
 class Solution {
 public:
-    void solve(vector<int> &res,vector<int> &nums,int n,vector<vector<int>> &ans,bool visited[])
-    {
-        if(res.size()==n)
-        {
-            ans.push_back(res);
+    void recursion(vector<int> num, int i, int j, vector<vector<int> > &res) {
+        if (i == j-1) {
+            res.push_back(num);
             return;
         }
-        
-        for(int i=0;i<n;i++)
-        {
-            if(!visited[i])
-            {
-                res.push_back(nums[i]);
-                visited[i]=true;
-                solve(res,nums,n,ans,visited);
-                visited[i]=false;
-                res.pop_back();
-            }
+        for (int k = i; k < j; k++) {
+            if (i != k && num[i] == num[k]) continue;
+            swap(num[i], num[k]);
+            recursion(num, i+1, j, res);
         }
-        return;
     }
-    
-    
-    vector<vector<int>> permuteUnique(vector<int>& nums) {
-        vector<vector<int>> ans;
-        vector<int> res;
-        int len=nums.size();
-        bool visited[100]={false};
-        solve(res,nums,len,ans,visited);
-        set<vector<int>> st;
-        for(auto x: ans) st.insert(x);
-        ans.clear();
-        for(auto x: st) ans.push_back(x);
-        return ans;
+    vector<vector<int> > permuteUnique(vector<int> &num) {
+        sort(num.begin(), num.end());
+        vector<vector<int> >res;
+        recursion(num, 0, num.size(), res);
+        return res;
     }
 };
