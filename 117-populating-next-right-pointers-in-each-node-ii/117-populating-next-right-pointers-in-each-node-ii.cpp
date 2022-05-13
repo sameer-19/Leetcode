@@ -23,7 +23,6 @@ public:
         Node* tmp=root;
         
         queue<Node*> q;
-        
         q.push(tmp);
         
         while(!q.empty())
@@ -44,13 +43,10 @@ public:
                 {
                     prev=z;
                 }
-                
                 if(z->left) q.push(z->left);
                 if(z->right) q.push(z->right);
-            }
-            
+            }   
         }
-        
         return root;
     }
 };
