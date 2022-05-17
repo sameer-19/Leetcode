@@ -17,6 +17,9 @@ public:
         if(cloned->val==target->val) return cloned;
         
         TreeNode* left=solve(cloned->left,target);
+        
+        if(left) return left;
+        
         TreeNode* right=solve(cloned->right,target);
         
         if(!left) return right;
