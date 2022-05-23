@@ -1,50 +1,43 @@
 class Solution {
 public:
-    int myAtoi(string s) {
-        long long ans=0,n=s.length(),i;
-        char ch='+';
-        bool f=0;
-        int cnt=0;
-        for(i=0;i<n;i++)
-        {
-            if(f==0)
-            {
-                if(s[i]==' ' && cnt==0) continue;
-                else if(s[i]==' ' && cnt==1) return 0;
-                else if(s[i]=='-' || s[i]=='+') { cnt++; ch=s[i];}
-                else if(s[i]>='0' && s[i]<='9') 
-                { 
-                    if((ans*10)+(s[i]-'0')<=INT_MAX) { ans=(ans*10)+(s[i]-'0'); f=1;}
-                    else 
-                    {
-                        if(ch=='+')
-                            return INT_MAX;
-                        else 
-                            return INT_MIN;
-                    }
-                }  
-                else return 0;;
-                if(cnt>=2) return 0;
-            }
-            else
-            {
-                if(s[i]==' ') break;
-                else if(s[i]=='-' || s[i]=='+') break;
-                else if(s[i]>='0' && s[i]<='9')
-                { 
-                    if((ans*10)+(s[i]-'0')<=INT_MAX) {ans=(ans*10)+(s[i]-'0'); f=1;}
-                    else 
-                    {
-                        if(ch=='+')
-                            return INT_MAX;
-                        else 
-                            return INT_MIN;
-                    }
-                }
-                else break;
-            }
+    int myAtoi(string input) {
+        int sign = 1; 
+        int result = 0; 
+        int index = 0;
+        int n = input.size();
+        
+        // Discard all spaces from the beginning of the input string.
+        while (index < n && input[index] == ' ') { 
+            index++; 
         }
-        if(ch=='-') return -ans;
-        else return ans;
+        
+        // sign = +1, if it's positive number, otherwise sign = -1. 
+        if (index < n && input[index] == '+') {
+            sign = 1;
+            index++;
+        } else if (index < n && input[index] == '-') {
+            sign = -1;
+            index++;
+        }
+        
+        // Traverse next digits of input and stop if it is not a digit. 
+        // End of string is also non-digit character.
+        while (index < n && isdigit(input[index])) {
+            int digit = input[index] - '0';
+
+            // Check overflow and underflow conditions. 
+            if ((result > INT_MAX / 10) || (result == INT_MAX / 10 && digit > INT_MAX % 10)) { 
+                // If integer overflowed return 2^31-1, otherwise if underflowed return -2^31.    
+                return sign == 1 ? INT_MAX : INT_MIN;
+            }
+            
+            // Append current digit to the result.
+            result = 10 * result + digit;
+            index++;
+        }
+        
+        // We have formed a valid number without any overflow/underflow.
+        // Return it after multiplying it with its sign.
+        return sign * result;
     }
 };
