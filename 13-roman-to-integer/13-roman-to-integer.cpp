@@ -10,18 +10,19 @@ public:
         
         if(n==1) return mp[s[0]];
         
-        for(i=0;i<n-1;i++)
+        for(i=0;i<n-1;++i)
         {
             if(mp[s[i]]<mp[s[i+1]]) 
             {
                 ans+=mp[s[i+1]]-mp[s[i]];
-                i++;
+                ++i;
             }
             else
             {
                 ans+=mp[s[i]];
             }
         }
+        
         if(i!=n) ans+=mp[s[n-1]];
         
         
