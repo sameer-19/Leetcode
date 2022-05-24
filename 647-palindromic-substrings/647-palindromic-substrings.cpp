@@ -1,21 +1,24 @@
 class Solution {
 public:
-    int countSubstrings(string s) {
-        int n = s.size();
-        int cnt = 0;
-        for(int i = 0; i < n; i++) {
-            palindromic(s, i, i, cnt);  //judge odd substring
-            palindromic(s, i, i+1, cnt);//judge even substring
-        }
+    int solve(int start,int end,string s,int n)
+    {
+        // length of the palindromic substring
+        int cnt=0;
+        
+        while(start>=0 and end<n and s[start]==s[end]) start--,end++,cnt++;
+        
         return cnt;
     }
     
-private:
-    void palindromic(string s, int left, int right, int& cnt) { //judge if a substring is palindromic
-        while(left >=0 && right < s.size() && s[left] == s[right]) {
-            cnt++;
-            left--;
-            right++;
+    int countSubstrings(string s) {
+        int n=s.length(),i,ans=0;
+        
+        for(i=0;i<n;i++)
+        {
+            ans+=solve(i,i,s,n);
+            ans+=solve(i,i+1,s,n);
         }
+        
+        return ans;
     }
 };
