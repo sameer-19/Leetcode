@@ -9,41 +9,33 @@ using namespace std;
 class Solution {
   public:
     int maxBinTreeGCD(vector<vector<int>> arr, int n) {
-        vector<int> adj[100005];
         int i,j;
         
-        for(auto x: arr)
-        {
-            adj[x[0]].push_back(x[1]);
-            // adj[x[1]].push_back(x[0]);
-        }
+        sort(arr.begin(),arr.end());
         
-        // for(i=1;i<1e5+5;i++)
-        // {
-        //     if(adj[i].size()>0)
-        //     {
-        //         for(j=0;j<adj[i].size();j++) cout<<adj[i][j]<<" ";
-        //         cout<<endl;
-        //     }
-        // }
         if(n==1) return 0;
         
-        int ans=1,mx=1,f=0;
-        for(i=1;i<1e5+5;i++)
+        int cur=0,ans=0,prev=arr[0][0],cnt=1;
+        
+        for(i=1;i<arr.size();i++)
         {
-            mx=0;
-            int cnt=0;
-            for(auto x: adj[i])
-            {
-                if(mx==0) mx=x;
-                else mx=__gcd(mx,x);
-                cnt++;
+            if(i==1) cur=arr[0][1];
+            if(arr[i][0]==prev) cur=__gcd(cur,arr[i][1]),cnt++;
+            else{
+                if(cnt>1)
+                {
+                    ans=max(ans,cur);
+                }
+                cur=arr[i][1];
+                prev=arr[i][0];
+                cnt=1;
             }
-            // if(mx>0) cout<<mx<<" ";
-            if(cnt>1) ans=max(ans,mx),f=1;
         }
-        if(f) return ans;
-        return 0;
+        
+        if(cnt>1)
+        ans=max(ans,cur);
+        return ans;
+        // return 0;
     }
 };
 
