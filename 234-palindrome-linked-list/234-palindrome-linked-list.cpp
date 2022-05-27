@@ -11,25 +11,28 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        ListNode *fast=head,*slow=head,*prev=NULL,*tmp;
+        ListNode* fast=head,*slow=head,*tmp,*prev=NULL;
         
         while(fast and fast->next)
         {
             fast=fast->next->next;
+            
             tmp=slow->next;
+            
             slow->next=prev;
             prev=slow;
             slow=tmp;
         }
-        slow=(fast ? slow->next : slow); // fast==NULL means even length else odd length linkedList
+        
+        slow= fast ? slow->next : slow;
+        
         while(slow)
         {
             if(slow->val!=prev->val) return false;
-            slow=slow->next;
             prev=prev->next;
+            slow=slow->next;
         }
+        
         return true;
-        
-        
     }
 };
