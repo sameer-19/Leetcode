@@ -7,17 +7,20 @@ class Solution {
 public:
 	bool dfs(vector<vector<int>>&sol,vector<vector<int>>&matrix,int n,int i,int j)
     {
-       if(i>=n||j>=n)
-       return 0;
+       if(i>=n||j>=n) return 0;
+       
        sol[i][j]=1;
-       if(i==n-1 && j==n-1)
-       return 1;
+       
+       if(i==n-1 && j==n-1) return 1;
+       
        int val=matrix[i][j];
+       
        for(int k=1;k<=val;k++)
        {
            if(dfs(sol,matrix,n,i,j+k)||dfs(sol,matrix,n,i+k,j))
            return 1;
        }
+       
        sol[i][j]=0;
        return 0;
     }
@@ -25,8 +28,9 @@ public:
        // Code here
        int n=matrix.size();
        vector<vector<int>>sol(n,vector<int>(n,0));
-       if(dfs(sol,matrix,n,0,0))
-       return sol;
+       
+       if(dfs(sol,matrix,n,0,0)) return sol;
+       
        return {{-1}};
     }
 
