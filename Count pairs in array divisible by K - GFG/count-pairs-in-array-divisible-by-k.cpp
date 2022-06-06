@@ -19,40 +19,46 @@ class Solution
         
         for(i=0;i<n;i++) A[i]=(A[i]%k);
         
-        map<int,int> mp;
+        // map<int,int> mp;
         
         
         // for(i=0;i<n;i++) cout<<A[i]<<" "; 
         
-        for(i=0;i<n;i++) mp[A[i]]++;
+        int mp[k+1]={0};
+        bool visited[k+1]={0};
         
+        for(i=0;i<n;i++) mp[A[i]]++;
         
         set<int> s;
         
-        for(auto x: mp)
+        for(i=0;i<k;i++)
         {
-            if(x.first==0)
+            if(mp[i]>0)
             {
-                int cnt=x.second;
-                ans+=(cnt*(cnt-1))/2;
-                s.insert(x.first);
+                if(i==0)
+                {
+                    int cnt=mp[i];
+                    ans+=(cnt*(cnt-1))/2;
+                    visited[i]=1;
+                }
+                else if(k-i==i)
+                {
+                    int cnt=mp[i];
+                    ans+=(cnt*(cnt-1))/2;
+                    visited[i]=1;
+                }
+                else if(visited[i]==0)
+                {
+                    int cnt1=mp[i],cnt2;
+                    cnt2=mp[k-i];
+                    
+                    ans+=(cnt1*cnt2);
+                    
+                    visited[i]=1;
+                    visited[k-i]=1;
+                }   
             }
-            else if(k-x.first==x.first)
-            {
-                int cnt=x.second;
-                ans+=(cnt*(cnt-1))/2;
-                s.insert(x.first);
-            }
-            else if(!s.count(x.first))
-            {
-                int cnt1=x.second,cnt2;
-                cnt2=mp[k-x.first];
-                
-                ans+=(cnt1*cnt2);
-                
-                s.insert(x.first);
-                s.insert(k-x.first);
-            }
+            
         }
         
         return ans;
