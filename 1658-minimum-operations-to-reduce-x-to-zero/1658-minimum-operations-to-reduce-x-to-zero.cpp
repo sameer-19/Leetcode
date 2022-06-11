@@ -30,7 +30,7 @@ public:
             int sum=x-pref[i];
             if(binary_search(suff,suff+n-i-1,sum)) 
             {
-                cout<<i;
+                // cout<<i;
                 
                 auto low=lower_bound(suff,suff+n,sum)-suff;
                 
