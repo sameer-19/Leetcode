@@ -10,7 +10,7 @@ public:
     }
     
     string get(string key, int timestamp) {
-        if(mp.find(key)!=mp.end()){
+        if(mp[key].size()>0){
             string ans="";
             
             int left=0,right=mp[key].size()-1;
