@@ -36,18 +36,7 @@ public:
     int knapSack(int N, int W, int val[], int wt[])
     {
         memset(dp,-1,sizeof(dp));
-        // ans=0;
-        int profit=0;
         return solve(W,N,N-1,wt,val);
-        
-        // return dp[N][W];
-        // int dp[W+1]={0};
-        
-        
-        
-        
-        
-        // return dp[W];
     }
 };
 
