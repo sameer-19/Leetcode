@@ -16,11 +16,11 @@ public:
         ans=max(ans,pref[k-1]);
         ans=max(ans,suff[n-k]);
         
-        int c=n-k;
+        int c=n-k,sum;
         
         for(i=0;i<k;i++)
         {   
-            int sum=0;
+            sum=0;
             if(c+1<n) sum=pref[i]+suff[c+1],c++;
             else sum=pref[i];
 
