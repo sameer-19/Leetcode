@@ -142,6 +142,5 @@ vector<int> diagonal(Node *root)
        }
    }
    
-   
    return result;
 }
