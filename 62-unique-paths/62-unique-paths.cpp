@@ -19,25 +19,23 @@ public:
         
         vector<vector<int>> dp(m,vector<int> (n,-1));
         
-        return solve(m-1,n-1,dp);
+        int i,j;
         
-        // int a[105][105];
-        // int i,j,ans=0;
-        // for(i=0;i<m;i++)
-        // {
-        //     for(j=0;j<n;j++)
-        //     {
-        //         if(i==0 || j==0) a[i][j]=1;
-        //     }
-        // }
-        // for(i=1;i<m;i++)
-        // {
-        //     for(j=1;j<n;j++)
-        //     {
-        //         a[i][j]=a[i-1][j]+a[i][j-1];
-        //     }
-        // }
-        // ans=a[m-1][n-1];
-        // return ans;
+        for(i=0;i<m;i++)
+        {
+            for(j=0;j<n;j++)
+            {
+                if(i==0 && j==0) dp[i][j]=1;
+                else
+                {
+                    int left=0,up=0;
+                    if(i>0) up=dp[i-1][j];
+                    if(j>0) left=dp[i][j-1];
+
+                    dp[i][j]=left+up;   
+                }
+            }
+        }
+        return dp[m-1][n-1];
     }
 };
