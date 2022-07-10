@@ -25,15 +25,13 @@ public:
         
         solve(root,v);
         
-        map<int,int> mp;
-        int i;
+        int i=0,j=v.size()-1;
         
-        for(i=0;i<v.size();i++) mp[v[i]]++;
-        
-        for(i=0;i<v.size();i++)
+        while(i<j)
         {
-            if(k-v[i]!=v[i] and mp[k-v[i]]>0) return true;
-            else if(k-v[i]==v[i] and mp[v[i]]>1) return true;
+            if(v[i]+v[j]==k) return true;
+            else if(v[i]+v[j]<k) i++;
+            else j--;
         }
         
         return false;
