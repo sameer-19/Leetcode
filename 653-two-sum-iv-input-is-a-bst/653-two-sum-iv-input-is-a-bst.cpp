@@ -17,6 +17,7 @@ public:
         solve(root->left,nums);
         nums.push_back(root->val);
         solve(root->right,nums);
+        return;
     }
     
     bool findTarget(TreeNode* root, int k) {
