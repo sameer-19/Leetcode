@@ -11,12 +11,32 @@
  */
 class Solution {
 public:
-    int findMax(vector<int> &nums,int l,int r)
+//     int findMax(vector<int> &nums,int l,int r)
+//     {
+//         int mx=INT_MIN;
+//         int idx=0;
+        
+//         for(int i=l;i<=r;i++)
+//         {
+//             if(nums[i]>mx)
+//             {
+//                 mx=nums[i];
+//                 idx=i;
+//             }
+//         }
+            
+//         return idx;
+//     }
+    
+    TreeNode* solve(vector<int>& nums,int left,int right)
     {
+        if(left>right) return NULL;
+        if(left==right) return new TreeNode(nums[left]);
+        
         int mx=INT_MIN;
         int idx=0;
         
-        for(int i=l;i<=r;i++)
+        for(int i=left;i<=right;i++)
         {
             if(nums[i]>mx)
             {
@@ -24,16 +44,6 @@ public:
                 idx=i;
             }
         }
-            
-        return idx;
-    }
-    
-    TreeNode* solve(vector<int>& nums,int left,int right)
-    {
-        if(left>right) return NULL;
-        if(left==right) return new TreeNode(nums[left]);
-        
-        int idx=findMax(nums,left,right);
         TreeNode* root = new TreeNode(nums[idx]);
         
         root->left = solve(nums,left,idx-1);
