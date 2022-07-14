@@ -84,37 +84,25 @@ struct Node {
 Node* sortedMerge(Node* head1, Node* head2)  
 {  
     Node* ans=new Node(0);
-    Node* tmp=ans,*h1=head1,*h2=head2;
+    Node* temp = ans;
     
-    while(h1 and h2)
+    while(head1 and head2)
     {
-        if(h1->data<=h2->data)
+        if(head1->data > head2->data)
         {
-            Node* c=new Node(h1->data);
-            tmp->next=c;
-            tmp=tmp->next;
-            h1=h1->next;
+            temp->next=head2;
+            head2=head2->next;
         }
-        else{
-            Node* c=new Node(h2->data);
-            tmp->next=c;
-            tmp=tmp->next;
-            h2=h2->next;
+        else
+        {
+            temp->next=head1;
+            head1=head1->next;
         }
-    }
-    while(h1){
-        Node* c=new Node(h1->data);
-        tmp->next=c;
-        tmp=tmp->next;
-        h1=h1->next;
+        temp=temp->next;
     }
     
-    while(h2){
-        Node* c=new Node(h2->data);
-        tmp->next=c;
-        tmp=tmp->next;
-        h2=h2->next;
-    }
+    if(!head1) temp->next=head2;
+    else temp->next=head1;
     
     return ans->next;
 }  
