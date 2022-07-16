@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // Memoization
     int solve(int idx,vector<int>&cost,vector<int> &dp)
     {
         if(idx==0) return cost[0];
@@ -18,7 +19,15 @@ ans+=min(solve(idx-1,cost,dp),solve(idx-2,cost,dp)) + (idx==cost.size()?0:cost[i
         int n=cost.size();
         
         vector<int> dp(n+1,-1);
-    
-        return solve(n,cost,dp);
+        
+        dp[0] = cost[0];
+        dp[1] = cost[1];
+        
+        for(int i=2;i<=n;i++)
+        {
+            dp[i] = min(dp[i-1],dp[i-2]) + (i==n ? 0 : cost[i]);
+        }
+        
+        return dp[n];
     }
 };
