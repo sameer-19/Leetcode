@@ -1,5 +1,7 @@
 class Solution {
 public:
+    
+    // Memoization
     int solve(int i,int n,vector<int> &dp)
     {
         if(i>n) return 0;
@@ -17,6 +19,13 @@ public:
         if(n==1) return 1;
         vector<int> dp(n+1,-1);
         
-        return solve(0,n,dp);
+        dp[0]=1;
+        dp[1]=1;
+        for(int i=2;i<=n;i++)
+        {
+            dp[i] = dp[i-1] + dp[i-2];
+        }
+        
+        return dp[n];
     }
 };
