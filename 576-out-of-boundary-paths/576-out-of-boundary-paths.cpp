@@ -29,7 +29,7 @@ public:
         if(maxMove==0) return 0;
         
         int ans=0;
-        vector<vector<vector<int>>> dp(m+1,vector<vector<int>> (n+1,vector<int> (maxMove+1,-1)));
+vector<vector<vector<int>>> dp(m+1,vector<vector<int>> (n+1,vector<int> (maxMove+1,-1)));
         
         return solve(startRow,startColumn,m,n,maxMove,dp);
         
