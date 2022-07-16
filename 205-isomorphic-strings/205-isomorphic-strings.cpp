@@ -1,29 +1,28 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        map<char,set<char>> mp,mp2;
-        int i=0;
+        int i,a[256],b[256],n=s.length();
         
-        for(auto x: s)
+        for(i=0;i<256;i++)
         {
-            mp[x].insert(t[i++]);
+            a[i]=-1;
+            b[i]=-1;
         }
         
-        i=0;
-        for(auto x: t)
+        for(i=0;i<n;i++)
         {
-            mp2[x].insert(s[i++]);
+            if(a[s[i]]==-1 and b[t[i]]==-1)
+            {
+                a[s[i]]=t[i];
+                b[t[i]]=s[i];
+            }
+            else if(a[s[i]]==-1 || b[t[i]]==-1) return false;
+            else if(!(a[s[i]]==t[i] and b[t[i]]==s[i]))
+            {
+                return false;
+            }
         }
         
-        for(auto x: mp)
-        {
-            if(x.second.size()>1) return false;
-        }
-        
-        for(auto x: mp2)
-        {
-            if(x.second.size()>1) return false;
-        }
         
         return true;
     }
