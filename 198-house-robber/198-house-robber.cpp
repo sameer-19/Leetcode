@@ -1,18 +1,25 @@
 class Solution {
 public:
-    int rob(vector<int>& nums) {
-        int i,dp[101],n=nums.size();
-        dp[0]=nums[0];
+    // Memoization
+    int solve(int idx,vector<int>&nums,vector<int>&dp)
+    {
+        if(idx<0) return 0;
+        if(idx==0) return nums[idx];
         
-        for(i=1;i<n;i++)
-        {
-            int pick = nums[i];
-            if(i>1) pick += dp[i-2];
-            
-            int notPick = 0 + dp[i-1];
-            
-            dp[i]=max(pick,notPick);
-        }
-        return dp[n-1];
+        if(dp[idx]!=-1) return dp[idx];
+        
+        int ans=0;
+        
+        ans = max(solve(idx-2,nums,dp)+nums[idx],solve(idx-1,nums,dp));
+        
+        return dp[idx] = ans;
+    }
+    
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        
+        vector<int> dp(n+1,-1);
+        
+        return solve(n-1,nums,dp);       
     }
 };
