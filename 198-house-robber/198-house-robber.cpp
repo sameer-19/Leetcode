@@ -17,6 +17,7 @@ public:
     
     int rob(vector<int>& nums) {
         int n=nums.size();
+        if(n==1) return nums[0];
         
         vector<int> dp(n+2,-1);
         
@@ -24,7 +25,8 @@ public:
         
         for(int i=1;i<=n;i++)
         {
-            dp[i] = max(dp[i-1],(i-2>=0 ? dp[i-2] : 0)+ (i==n ? 0 : nums[i]));
+            if(i>1) dp[i] = max(dp[i-1],dp[i-2] + (i==n ? 0 : nums[i]));
+            else dp[i] = max(dp[i-1],nums[i]);
         }
         
         return dp[n-1];       
