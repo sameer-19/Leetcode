@@ -18,8 +18,15 @@ public:
     int rob(vector<int>& nums) {
         int n=nums.size();
         
-        vector<int> dp(n+1,-1);
+        vector<int> dp(n+2,-1);
         
-        return solve(n-1,nums,dp);       
+        dp[0]=nums[0];
+        
+        for(int i=1;i<=n;i++)
+        {
+            dp[i] = max(dp[i-1],(i-2>=0 ? dp[i-2] : 0)+ (i==n ? 0 : nums[i]));
+        }
+        
+        return dp[n-1];       
     }
 };
