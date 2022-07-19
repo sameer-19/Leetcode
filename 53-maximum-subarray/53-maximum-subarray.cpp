@@ -6,7 +6,9 @@ public:
         for(i=0;i<n;i++)
         {
             sum+=nums[i];
-            ans=max(ans,sum);
+            
+            if(ans<sum) ans=sum;
+            
             if(sum<0) sum=0;
         }
         
