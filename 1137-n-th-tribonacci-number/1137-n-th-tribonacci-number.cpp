@@ -6,7 +6,7 @@ public:
         if(n==2) return dp[n] = 1;
         if(dp[n]!=-1) return dp[n];
         
-        return dp[n] = tribonacci(n-1) + tribonacci(n-2) + tribonacci(n-3);
+        return dp[n] = tribonacci(n-3) + tribonacci(n-2) + tribonacci(n-1);
     }
     
     int tribonacci(int n) {
@@ -16,6 +16,7 @@ public:
         dp[1]=1;
         dp[2]=1;
         int i;
+        // solve(n,dp);
         for(i=3;i<=n;i++) dp[i]=dp[i-1]+dp[i-2]+dp[i-3];
         
         return dp[n];
