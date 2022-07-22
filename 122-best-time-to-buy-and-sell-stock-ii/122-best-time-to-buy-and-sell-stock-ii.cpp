@@ -1,5 +1,7 @@
 class Solution {
 public:
+    
+    // Memoization
     int solve(int idx,int n,int buy,vector<int>&prices,vector<vector<int>> &dp)
     {
         if(idx==n) return 0;
@@ -28,11 +30,36 @@ public:
         
         int n=prices.size(),i;
         
-        vector<vector<int>> dp(n+1,vector<int> (2,-1));
+        vector<vector<int>> dp(n+1,vector<int> (2,0));
         
-        int buy=1;
+        // int buy=1;
         
-        return solve(0,n,buy,prices,dp);
+        // Tabulation
+        for(int idx=n-1;idx>=0;idx--)
+        {
+            for(int buy=0;buy<=1;buy++)
+            {
+                int profit=0;
+        
+                if(buy)
+                {
+                    int take = -prices[idx] + dp[idx+1][0];
+                    int notTake = 0 + dp[idx+1][1];
+                    profit = max(take,notTake);
+                }
+                else
+                {
+                    int sell = prices[idx] + dp[idx+1][1];
+                    int notSell = 0 + dp[idx+1][0];
+                    profit = max(sell,notSell);
+                }
+                
+                dp[idx][buy] = profit;
+            }
+        }
+        
+        
+        return dp[0][1];
         
     }
 };
