@@ -26,13 +26,11 @@ public:
         return dp[idx][buy] = profit;
     }
     
-    int maxProfit(vector<int>& prices) {
-        
+    int tabulation(vector<int>& prices)
+    {
         int n=prices.size(),i;
         
         vector<vector<int>> dp(n+1,vector<int> (2,0));
-        
-        // int buy=1;
         
         // Tabulation
         for(int idx=n-1;idx>=0;idx--)
@@ -60,6 +58,43 @@ public:
         
         
         return dp[0][1];
+    }
+    
+    int maxProfit(vector<int>& prices) {
+        
+        int n=prices.size(),i;
+        
+        vector<int> after(2,0),cur(2,0);
+        
+        // int buy=1;
+        
+        // Tabulation
+        for(int idx=n-1;idx>=0;idx--)
+        {
+            for(int buy=0;buy<=1;buy++)
+            {
+                int profit=0;
+        
+                if(buy)
+                {
+                    int take = -prices[idx] + after[0];
+                    int notTake = 0 + after[1];
+                    profit = max(take,notTake);
+                }
+                else
+                {
+                    int sell = prices[idx] + after[1];
+                    int notSell = 0 + after[0];
+                    profit = max(sell,notSell);
+                }
+                
+                cur[buy] = profit;
+            }
+            after = cur; 
+        }
+        
+        
+        return after[1];
         
     }
 };
