@@ -1,44 +1,21 @@
 class Solution {
 public:
-    bool searchMatrix(vector<vector<int>>& mat, int target) {
-        int m=mat.size(),n=mat[0].size();
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m=matrix.size(),n=matrix[0].size(),r,c;
         
-        int i,j,idx1=0,idx2=0;
-        int left,right;
+        // start from top right and reduce column and row according to condition
+        r=0;c=n-1;
         
-        for(i=0;i<m;i++)
+        while(r<m and c>=0)
         {
-            if(mat[i][0]<=target and mat[i][n-1]>=target)
+            if(matrix[r][c]==target)
             {
-                left=0;right=n-1;
-                idx1=i;
-        
-                while(left<=right)
-                {
-                    int mid=left+(right-left)/2;
-                    if(mat[idx1][mid]==target) return true;
-                    else if(mat[idx1][mid]>target) right=mid-1;
-                    else left=mid+1;
-                }   
+                return true;
             }
+            matrix[r][c]>target ? c-- : r++;
         }
         
-        for(j=0;j<n;j++)
-        {
-            if(mat[0][j]<=target and mat[m-1][j]>=target)
-            {
-                left=0;right=m-1;
-                idx2=j;
-        
-                while(left<=right)
-                {
-                    int mid=left+(right-left)/2;
-                    if(mat[mid][idx2]==target) return true;
-                    else if(mat[mid][idx2]>target) right=mid-1;
-                    else left=mid+1;
-                }
-            }
-        }
+        // Time Complexity - O(m+n)
         
         return false;
     }
