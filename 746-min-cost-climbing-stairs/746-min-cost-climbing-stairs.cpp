@@ -12,9 +12,21 @@ return dp[idx] = min(solve(idx-1,cost,dp),solve(idx-2,cost,dp)) +
     }
     
     int minCostClimbingStairs(vector<int>& cost) {
-        int n=cost.size();
+        int n=cost.size(),i;
         vector<int> dp(n+1,-1);
         
-        return solve(n,cost,dp);
+        dp[0]=cost[0];
+        dp[1]=cost[1];
+        
+        for(i=2;i<=n;i++)
+        {
+            if(i<n)
+            {
+                dp[i]=min(dp[i-1],dp[i-2])+cost[i];
+            }
+            else dp[i]=min(dp[i-1],dp[i-2]);
+        }
+        
+        return dp[n];
     }
 };
