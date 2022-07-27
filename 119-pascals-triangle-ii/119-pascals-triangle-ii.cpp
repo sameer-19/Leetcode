@@ -1,34 +1,15 @@
 class Solution {
 public:
-    vector<int> getRow(int n) {
-        vector<vector<int>> ans;
-        
-        vector<int> res;
-        res.push_back(1);
-        ans.push_back(res);
-        
-        if(n==0) return res;
-        
-        res.push_back(1);
-        ans.push_back(res);
-        
-        if(n==1) return res; 
-        
-        int i,j;
-        
-        for(i=3;i<=n+1;i++)
+    vector<int> getRow(int rowIndex) {
+        vector<int> vi(rowIndex + 1);
+       	vi[0] = 1;
+        for (int i = 0; i <= rowIndex ; ++i)
         {
-            vector<int> tmp;
-            tmp.push_back(1);
-            for(j=1;j<=i-2;j++)
-            {
-                tmp.push_back(res[j]+res[j-1]);
-            }
-            tmp.push_back(1);
-            ans.push_back(tmp);
-            res=tmp;
+        	for (int j = i; j > 0; --j)
+        	{
+	        	vi[j] = vi[j] + vi[j-1];
+        	}
         }
-        
-        return ans[n];
+        return vi;
     }
 };
