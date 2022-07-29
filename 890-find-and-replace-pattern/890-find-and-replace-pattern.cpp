@@ -1,34 +1,34 @@
 class Solution {
 public:
-    
-    bool match(string& w1, string& w2) 
+    bool check(string a,string b)
     {
-        unordered_map<char, char> w1_to_w2;
-        for(int i = 0; i < size(w1); i++) 
-        {
-            if( (w1_to_w2.count(w1[i]) && w1_to_w2[w1[i]] != w2[i]) ) 
-                return false; 
-            else
-                w1_to_w2[w1[i]] = w2[i];
-        }    
-        bool visited[26]={false};
+        map<char,char> mp1,mp2;
+        int i,n=b.length();
         
-        for(auto x: w1_to_w2)
+        for(i=0;i<n;i++)
         {
-            if(visited[x.second-'a']) return false;
-            else visited[x.second-'a'] = true;
+            if(mp1.find(a[i])==mp1.end() and mp2.find(b[i])==mp2.end())
+            {
+                mp1[a[i]]=b[i];
+                mp2[b[i]]=a[i];
+            }
+            else if(mp1[a[i]]!=b[i] || mp2[b[i]]!=a[i]) return false;
         }
         
         return true;
     }
     
-    
-    vector<string> findAndReplacePattern(vector<string>& words, string pat) {
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
         vector<string> ans;
         
-        for(auto x: words)
+        int n=words.size(),i;
+        
+        for(i=0;i<n;i++)
         {
-            if(match(x,pat)) ans.push_back(x);
+            if(check(words[i],pattern))
+            {
+                ans.push_back(words[i]);
+            }
         }
         
         return ans;
