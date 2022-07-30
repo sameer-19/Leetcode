@@ -1,49 +1,28 @@
 class Solution {
 public:
+    int solve(int i,int j,int m,int n,vector<vector<int>> &grid,
+                                                        vector<vector<int>> &dp)
+    {
+        if(i<0 || i>=m || j<0 || j>=n) return 0;
+        if(grid[i][j]==1) return 0;
+        
+        if(i==0 && j==0) return 1;
+        
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+        int ans=0;
+        
+        ans+=solve(i-1,j,m,n,grid,dp);
+        ans+=solve(i,j-1,m,n,grid,dp);
+        
+        return dp[i][j] = ans;
+    }
+    
     int uniquePathsWithObstacles(vector<vector<int>>& grid) {
-        int row=grid.size(),col=grid[0].size();
+        int m=grid.size(),n=grid[0].size(),i,j;
         
-        int i,j;
+        vector<vector<int>> dp(m+1,vector<int> (n+1,-1));
         
-        if(grid[0][0]==1 || grid[row-1][col-1]==1) return 0;
-        
-        vector<vector<int>> dp(row,vector<int> (col,0));
-        
-        for(i=0;i<row;i++)
-        {
-            for(j=0;j<col;j++)
-            {
-                if(grid[i][j]==1) dp[i][j]=-1;
-            }
-        }
-        
-        dp[0][0]=1;
-        
-        for(i=1;i<col;i++)
-        {
-            if(grid[0][i]==0 and dp[0][i-1]>0) dp[0][i]=dp[0][i-1];
-            else dp[0][i]=-1;
-        }
-        
-        for(i=1;i<row;i++)
-        {
-            if(grid[i][0]==0 and dp[i-1][0]>0) dp[i][0]=dp[i-1][0];
-            else dp[i][0]=-1;
-        }
-        
-        for(i=1;i<row;i++)
-        {
-            for(j=1;j<col;j++)
-            {
-                if(grid[i][j]==0)
-                {
-                    dp[i][j] += (dp[i-1][j]>0) ? dp[i-1][j] : 0;
-                    dp[i][j] += (dp[i][j-1]>0) ? dp[i][j-1] : 0;
-                }
-            }
-        }
-        
-        return dp[row-1][col-1];
-        
+        return solve(m-1,n-1,m,n,grid,dp);
     }
 };
