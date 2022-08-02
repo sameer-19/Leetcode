@@ -1,28 +1,26 @@
 class Solution {
 public:
-    int kthSmallest(vector<vector<int>>& mat, int k) {
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
         priority_queue<int> pq;
         
-        int ans=0,i,j,f=0,n=mat.size();
+        int n=matrix.size(),i,j;
         
         for(i=0;i<n;i++)
         {
             for(j=0;j<n;j++)
             {
-                if(pq.size()<k)
-                {
-                    pq.push(mat[i][j]);
-                }
+                if(pq.size()<k) pq.push(matrix[i][j]);
                 else
                 {
-                    if(pq.top()>mat[i][j])
+                    if(pq.top()>matrix[i][j])
                     {
                         pq.pop();
-                        pq.push(mat[i][j]);
+                        pq.push(matrix[i][j]);
                     }
                 }
             }
         }
+        
         return pq.top();
     }
 };
