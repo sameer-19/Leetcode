@@ -23,23 +23,26 @@ public:
         if(sum%2!=0 || n==1) return false;
         sum/=2;
         
-        vector<vector<bool>> dp(n+1,vector<bool> (sum+1,false));
+        vector<bool> prev(sum+1,false),cur(sum+1,false);
         
-        for(i=0;i<n;i++) dp[i][0]=true;
-        if(nums[0]<=sum) dp[0][nums[0]]=true;
+        prev[0]=true;
+        cur[0]=true;
+        
+        if(nums[0]<=sum) prev[nums[0]]=true;
         
         for(int idx=1;idx<n;idx++)
         {
             for(int target=1;target<=sum;target++)
             {
-                bool notTake = dp[idx-1][target];
+                bool notTake = prev[target];
                 bool take = false;
-                if(nums[idx]<=target) take = dp[idx-1][target-nums[idx]];
+                if(nums[idx]<=target) take = prev[target-nums[idx]];
 
-                dp[idx][target] = take|notTake;
+                cur[target] = take|notTake;
             }
+            prev=cur;
         }
         
-        return dp[n-1][sum];
+        return prev[sum];
     }
 };
