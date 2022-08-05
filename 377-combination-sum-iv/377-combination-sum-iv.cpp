@@ -18,8 +18,25 @@ public:
         
     int combinationSum4(vector<int>& nums, int target) {
         sort(nums.begin(),nums.end());
-        vector<int> dp(target+1,-1);
         
-        return solve(target,nums,dp);
+        int i,j,n=nums.size();
+        
+        vector<unsigned int> dp(target+1,0);
+        
+        dp[0]=1;
+        
+        for(i=1;i<=target;i++)
+        {
+            for(j=0;j<n;j++)
+            {
+                if(nums[j]<=i)
+                {
+                    dp[i]+=dp[i-nums[j]];
+                }
+                else break;
+            }
+        }
+        
+        return dp[target];
     }
 };
