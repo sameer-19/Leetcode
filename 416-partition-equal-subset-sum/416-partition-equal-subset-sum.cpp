@@ -20,11 +20,26 @@ public:
         
         for(i=0;i<n;i++) sum+=nums[i];
         
-        if(sum%2!=0) return false;
+        if(sum%2!=0 || n==1) return false;
         sum/=2;
         
-        vector<vector<int>> dp(n,vector<int> (sum+1,-1));
+        vector<vector<bool>> dp(n+1,vector<bool> (sum+1,false));
         
-        return f(n-1,sum,nums,dp);
+        for(i=0;i<n;i++) dp[i][0]=true;
+        if(nums[0]<=sum) dp[0][nums[0]]=true;
+        
+        for(int idx=1;idx<n;idx++)
+        {
+            for(int target=1;target<=sum;target++)
+            {
+                bool notTake = dp[idx-1][target];
+                bool take = false;
+                if(nums[idx]<=target) take = dp[idx-1][target-nums[idx]];
+
+                dp[idx][target] = take|notTake;
+            }
+        }
+        
+        return dp[n-1][sum];
     }
 };
