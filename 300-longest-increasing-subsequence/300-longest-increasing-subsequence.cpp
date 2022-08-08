@@ -22,23 +22,21 @@ public:
         
         if(n==1) return 1;
         
-        vector<int> dp(n+1,1);
+        vector<int> dp;
         
-        for(int i=0;i<n;i++)
+        dp.push_back(nums[0]);
+        
+        for(int i=1;i<n;i++)
         {
-            for(int j=i+1;j<n;j++)
+            if(nums[i]>dp.back()) dp.push_back(nums[i]);
+            else
             {
-                if(nums[j]>nums[i] and dp[i]+1>dp[j])
-                {
-                    dp[j]=dp[i]+1;
-                }
+                auto x = lower_bound(dp.begin(),dp.end(),nums[i])-dp.begin();
+                dp[x]=nums[i];
             }
         }
-        
-        int ans=1;
-        for(int i=0;i<n;i++) ans=max(ans,dp[i]);
                     
-        return ans;
+        return (int)dp.size();
         
     }
 };
