@@ -22,22 +22,23 @@ public:
         
         if(n==1) return 1;
         
-        vector<vector<int>> dp(n+1,vector<int> (n+1,0));
+        vector<int> cur(n+1,0),after(n+1,0);
         
         for(int idx=n-1;idx>=0;idx--)
         {
             for(int prev=idx-1;prev>=-1;prev--)
             {
-                int notTake = dp[idx+1][prev+1]; 
+                int notTake = after[prev+1]; 
                 int take = 0;
-                if(prev==-1 || nums[idx]>nums[prev]) take = 1 + dp[idx+1][idx+1];
+                if(prev==-1 || nums[idx]>nums[prev]) take = 1 + after[idx+1];
 
 
-                dp[idx][prev+1] = max(take,notTake);
+                cur[prev+1] = max(take,notTake);
             }
+            after = cur; 
         }
                 
-        return dp[0][0];
+        return after[0];
         
     }
 };
