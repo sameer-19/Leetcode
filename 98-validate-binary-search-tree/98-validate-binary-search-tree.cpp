@@ -23,6 +23,6 @@ public:
     bool isValidBST(TreeNode* root) {
         if(!root) return true;
         
-        return solve(root,-1e12,1e12);
+        return solve(root,-1e10,1e10);
     }
 };
