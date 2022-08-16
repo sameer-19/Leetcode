@@ -1,25 +1,34 @@
 class Solution {
 public:
-    int coinChange(vector<int>& coins, int amount) {
+    int solve(int idx,vector<int> &coins,int amount,vector<vector<int>> &dp)
+    {
+        if(idx==0)
+        {
+            if(amount%coins[0]==0) return amount/coins[0];
+            return 1e9;
+        }
         if(amount==0) return 0;
         
+        if(dp[idx][amount]!=-1) return dp[idx][amount];
+        
+        int take = 1e9;
+        if(coins[idx]<=amount) take = 1 + solve(idx,coins,amount-coins[idx],dp);
+        
+        int notTake = solve(idx-1,coins,amount,dp);
+        
+        return dp[idx][amount] = min(take,notTake);
+    }
+    
+    
+    int coinChange(vector<int>& coins, int amount) {
+        
+        sort(coins.begin(),coins.end());
         int n=coins.size();
         
-        int i,j,dp[amount+1];
+        vector<vector<int>> dp(n+1,vector<int> (amount+1,-1));
         
-        for(i=0;i<=amount;i++) dp[i]=amount+1;
+        int ans = solve(n-1,coins,amount,dp);
+        return (ans==(int)1e9) ? -1 : ans;
         
-        dp[0]=0;
-        
-        for(i=0;i<n;i++)
-        {
-            for(j=1;j<=amount;j++)
-            {
-                if(coins[i]<=j)   
-                    dp[j] = min(dp[j],dp[j-coins[i]]+1);
-            }
-        }
-        
-        return dp[amount]>amount ? -1 : dp[amount];
     }
 };
