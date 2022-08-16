@@ -25,26 +25,27 @@ public:
         sort(coins.begin(),coins.end());
         int n=coins.size(),i,j;
         
-        vector<vector<int>> dp(n+1,vector<int> (amount+1,1e9));
+        vector<int> cur(amount+1,1e9),prev(amount+1,1e9);
         
-        for(i=0;i<=amount;i++) dp[0][i] = (i%coins[0]==0) ? i/coins[0] : 1e9;
-        for(i=0;i<n;i++) dp[i][0]=0;
+        for(i=0;i<=amount;i++) prev[i] = (i%coins[0]==0) ? i/coins[0] : 1e9;
+        cur[0]=0;
         
         for(int idx=1;idx<n;idx++)
         {
             for(int amt=1;amt<=amount;amt++)
             {
                 int take = 1e9;
-                if(coins[idx]<=amt) take = 1 + dp[idx][amt-coins[idx]];
+                if(coins[idx]<=amt) take = 1 + cur[amt-coins[idx]];
 
-                int notTake = dp[idx-1][amt];
+                int notTake = prev[amt];
 
-                dp[idx][amt] = min(take,notTake);
+                cur[amt] = min(take,notTake);
             }
+            prev = cur;
         }
         
         // int ans = solve(n-1,coins,amount,dp);
-        return (dp[n-1][amount]==(int)1e9) ? -1 : dp[n-1][amount];
+        return (prev[amount]==(int)1e9) ? -1 : prev[amount];
         
     }
 };
