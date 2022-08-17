@@ -1,26 +1,25 @@
 class Solution {
 public:
-    void dfs(int i,vector<int> &nums,vector<bool> &visited,int &cnt)
+    void dfs(int i,vector<int> &nums,int &cnt)
     {
-        if(visited[i]==true) return;
+        if(nums[i]==-1) return;
         
         cnt++;
-        visited[i]=true;
+        int m = nums[i];
+        nums[i]=-1;
         
-        dfs(nums[i],nums,visited,cnt);
+        dfs(m,nums,cnt);
         
     }
     
     int arrayNesting(vector<int>& nums) {
         int ans=0,cnt=0,n=nums.size();
         
-        vector<bool> visited(n,false);
-        
         for(int i=0;i<n;i++)
         {
-            if(visited[i]==false)
+            if(nums[i]!=-1)
             {
-                dfs(i,nums,visited,cnt);
+                dfs(i,nums,cnt);
                 ans=max(ans,cnt);
                 cnt=0;
             }
