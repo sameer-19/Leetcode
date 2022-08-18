@@ -6,7 +6,7 @@ public:
         
         int ans=0,n=arr.size(),i;
         
-        for(i=0;i<n;i++) mp[arr[i]]++;
+        for(auto x: arr) mp[x]++;
         
         priority_queue<pair<int,int>> pq;
         
