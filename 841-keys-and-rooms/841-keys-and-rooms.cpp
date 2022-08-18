@@ -21,9 +21,9 @@ public:
             q.pop();
             visited[tp]=true;
             
-            for(i=0;i<rooms[tp].size();i++)
+            for(auto x: rooms[tp])
             {
-                if(!visited[rooms[tp][i]]) q.push(rooms[tp][i]);
+                if(!visited[x]) q.push(x);
             }
         }
         
