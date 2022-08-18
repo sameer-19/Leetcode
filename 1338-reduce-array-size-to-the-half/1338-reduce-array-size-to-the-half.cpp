@@ -1,14 +1,8 @@
 class Solution {
 public:
     
-    static bool cmp(pair<int,int> a,pair<int,int> b)
-    {
-        if(a.first>=b.first) return true;
-        return false;
-    }
-    
     int minSetSize(vector<int>& arr) {
-        map<int,int> mp;
+        unordered_map<int,int> mp;
         
         int ans=0,n=arr.size(),i;
         
