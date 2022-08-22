@@ -11,16 +11,15 @@
  */
 class BSTIterator {
 public:
-    vector<int> v;
-    int cnt=0;
+    stack<TreeNode*> s;
     
     void solve(TreeNode* root)
     {
-        if(!root) return;
-        
-        solve(root->left);
-        v.push_back(root->val);
-        solve(root->right);
+        while(root)
+        {
+            s.push(root);
+            root=root->left;
+        }
     }
     
     BSTIterator(TreeNode* root) {
@@ -28,15 +27,15 @@ public:
     }
     
     int next() {
-        int d=v[cnt];
-        cnt++;
-        return d;
+        TreeNode* top = s.top();
+        s.pop();
+        
+        solve(top->right);
+        return top->val;
     }
     
     bool hasNext() {
-        // cout<<cnt<<" ";
-        if(cnt<v.size()) return true;
-        return false;
+        return (!s.empty());
     }
 };
 
