@@ -11,28 +11,57 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        ListNode* fast=head,*slow=head,*tmp,*prev=NULL;
+        ListNode* tmp=head;
         
-        while(fast and fast->next)
+        int cnt=0;
+        
+        while(tmp)
         {
-            fast=fast->next->next;
-            
-            tmp=slow->next;
-            
-            slow->next=prev;
-            prev=slow;
-            slow=tmp;
+            cnt++;
+            tmp=tmp->next;
         }
         
-        slow= fast ? slow->next : slow;
+        int c=0;
         
-        while(slow)
+        ListNode* prev=NULL,*cur=head;
+        while(c<(cnt/2))
         {
-            if(slow->val!=prev->val) return false;
-            prev=prev->next;
-            slow=slow->next;
+            c++;
+            ListNode* z=cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=z;
         }
         
-        return true;
+        if(cnt%2==0)
+        {   
+            while(cur)
+            {
+                if(prev->val!=cur->val)
+                {
+                    return false;
+                }
+                prev=prev->next;
+                cur=cur->next;
+            }
+            
+            return true;
+        }
+        else
+        {
+            cur=cur->next;
+            while(cur)
+            {
+                if(prev->val!=cur->val)
+                {
+                    return false;
+                }
+                prev=prev->next;
+                cur=cur->next;
+            }
+            
+            return true;   
+        }
+            
     }
 };
