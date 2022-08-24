@@ -1,32 +1,59 @@
 class Solution {
 public:
-    int findMaxForm(vector<string>& strs, int m, int n) {
-        int dp[m+1][n+1];
-        int i,j;
-        
-        for(i=0;i<=m;i++) 
+    bool check(int zeroes,int ones,string s)
+    {
+        int c0=0,c1=0;
+        for(int i=0;i<s.length();i++)
         {
-            for(j=0;j<=n;j++) dp[i][j]=0;
+            if(s[i]=='0') c0++;
+            else c1++;
         }
         
-        for(auto x: strs)
+        return (c0<=zeroes && c1<=ones);
+    }
+    
+    int solve(int idx,int &zeroes,int &ones,vector<string> &a,
+                                            vector<vector<vector<int>>> &dp)
+    {
+        if(idx==0)
+        {
+            if(check(zeroes,ones,a[idx]))
+            {
+                return 1;
+            }
+            return 0;
+        }
+        
+        if(dp[idx][zeroes][ones]!=-1) return dp[idx][zeroes][ones];
+        
+        int notTake = solve(idx-1,zeroes,ones,a,dp);
+        
+        int take = 0;
+        if(check(zeroes,ones,a[idx]))
         {
             int c0=0,c1=0;
-            for(auto y: x) 
+            for(int i=0;i<a[idx].length();i++)
             {
-                if(y=='0') c0++;
+                if(a[idx][i]=='0') c0++;
                 else c1++;
             }
-            
-            for(int zero=m;zero>=c0;zero--)
-            {
-                for(int one=n;one>=c1;one--)
-                {
-                    dp[zero][one]=max(dp[zero-c0][one-c1]+1,dp[zero][one]);
-                }
-            }   
+            zeroes-=c0;
+            ones-=c1;
+            take = 1 + solve(idx-1,zeroes,ones,a,dp);
+            zeroes+=c0;
+            ones+=c1;
         }
         
-        return dp[m][n];
+        return dp[idx][zeroes][ones] = max(take,notTake);
+    }
+    
+    int findMaxForm(vector<string>& a, int m, int n) {
+        int sz = a.size();
+        
+        int i,ans=0,res=0;
+        
+        vector<vector<vector<int>>> dp(sz+1,vector<vector<int>> (m+1,vector<int> (n+1,-1)));
+        
+        return solve(sz-1,m,n,a,dp);
     }
 };
