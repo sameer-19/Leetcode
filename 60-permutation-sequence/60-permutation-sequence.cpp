@@ -1,26 +1,33 @@
 class Solution {
 public:
+    
     string getPermutation(int n, int k) {
-        vector<int> v;
-        
-        int i,cnt=1;
-        
-        for(i=1;i<=n;i++)
-        {
-            v.push_back(i);
-        }
+        vector<int> numbers;
         
         string ans="";
+        int i,cnt=1;
         
-        while(cnt<k and next_permutation(v.begin(),v.end()))
+        int fact=1;
+        for(i=1;i<=n;i++)
         {
-            cnt++;
-            if(cnt==k) break;
+            fact*=i;
+            numbers.push_back(i);
         }
+        fact/=n;
+        k--;
         
-        for(i=0;i<n;i++)
+        int c=0;
+        
+        while(1)
         {
-            ans+=to_string(v[i]);
+            ans=ans+to_string(numbers[k/fact]);
+            
+            numbers.erase(numbers.begin()+ k/fact);
+            
+            if(numbers.size()==0) break;
+            
+            k=k%fact;
+            fact/=numbers.size();
         }
         
         return ans;
