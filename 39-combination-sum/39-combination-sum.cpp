@@ -9,8 +9,6 @@ void solve(int idx,int &target,int sum,vector<int>&nums,vector<int>&res,vector<v
             return;
         }
         
-        if(sum>target) return;
-        
         solve(idx-1,target,sum,nums,res,ans);
         
         if(nums[idx]+sum<=target) 
