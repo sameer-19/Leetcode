@@ -1,6 +1,6 @@
 class Solution {
 public:
-void solve(int idx,int target,int sum,vector<int>&nums,vector<int>res,vector<vector<int>> &ans)
+void solve(int idx,int &target,int sum,vector<int>&nums,vector<int>&res,vector<vector<int>> &ans)
     {
         if(idx<0)
         {
@@ -18,6 +18,7 @@ void solve(int idx,int target,int sum,vector<int>&nums,vector<int>res,vector<vec
             sum+=nums[idx];    
             res.push_back(nums[idx]);
             solve(idx,target,sum,nums,res,ans);
+            res.pop_back();
         }
     
         return;
