@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void solve(int idx,vector<int>& nums,vector<int> res,vector<vector<int>>& ans)
+    void solve(int idx,vector<int>& nums,vector<int> &res,vector<vector<int>>& ans)
     {
         if(idx<0)
         {
@@ -8,13 +8,11 @@ public:
             return;
         }
         
-        solve(idx-1,nums,res,ans);
-        
         res.push_back(nums[idx]);
         solve(idx-1,nums,res,ans);
         
-        // res.pop_back();
-        
+        res.pop_back();
+        solve(idx-1,nums,res,ans);
         
         return;
     }
