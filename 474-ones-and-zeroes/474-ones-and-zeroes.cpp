@@ -12,6 +12,7 @@ public:
         return (c0<=zeroes && c1<=ones);
     }
     
+    // DP Memoization
     int solve(int idx,int &zeroes,int &ones,vector<string> &a,
                                             vector<vector<vector<int>>> &dp)
     {
@@ -48,12 +49,24 @@ public:
     }
     
     int findMaxForm(vector<string>& a, int m, int n) {
-        int sz = a.size();
+        int i,j;
         
-        int i,ans=0,res=0;
+        vector<vector<int>> dp(m+1,vector<int> (n+1,0));
         
-        vector<vector<vector<int>>> dp(sz+1,vector<vector<int>> (m+1,vector<int> (n+1,-1)));
+        for(auto x: a)
+        {
+            int zero = count(x.begin(),x.end(),'0');
+            int one = x.length()-zero;
+            
+            for(i=m;i>=zero;i--)
+            {
+                for(j=n;j>=one;j--)
+                {
+                    dp[i][j]=max(dp[i][j],1+dp[i-zero][j-one]);
+                }
+            }
+        }
         
-        return solve(sz-1,m,n,a,dp);
+        return dp[m][n];
     }
 };
