@@ -39,11 +39,11 @@ public:
         
         solve(0,target,nums,result,ans);
         
-        set<vector<int>> s;
+//         set<vector<int>> s;
         
-        for(auto x: ans) s.insert(x);
-        ans.clear();
-        for(auto x: s) ans.push_back(x);
+//         for(auto x: ans) s.insert(x);
+//         ans.clear();
+//         for(auto x: s) ans.push_back(x);
         
         return ans;
     }
