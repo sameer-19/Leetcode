@@ -1,42 +1,43 @@
 class Solution {
 public:
-    bool check(int node,vector<int> adj[],bool vis[],bool dfsvis[])
+    bool checkCycle(int node,vector<int> adj[],
+                            vector<bool> &visited,vector<bool> &dfsvisited)
     {
-        vis[node]=1;
-        dfsvis[node]=1;
+        visited[node]=true;
+        dfsvisited[node]=true;
         
-        for(auto it: adj[node])
+        for(auto child: adj[node])
         {
-            if(!vis[it])
+            if(!visited[child])
             {
-                if(check(it,adj,vis,dfsvis)) return true;
+                if(checkCycle(child,adj,visited,dfsvisited)) return true;
             }
-            else if(dfsvis[it]) return true;
+            else if(dfsvisited[child]) return true;
         }
         
-        dfsvis[node]=0;
-        
+        dfsvisited[node]=false; 
         return false;
     }
     
-    
-    bool canFinish(int n, vector<vector<int>>& pre) {
-        bool vis[100005]={false},dfsvis[100005]={false};
+    bool canFinish(int n, vector<vector<int>>& a) {
+        vector<int> adj[n];
         
-        vector<int> adj[100005];
+        int i,j,m=a.size();
         
-        for(int i=0;i<pre.size();i++)
-        {
-            adj[pre[i][1]].push_back(pre[i][0]);
+        for(i=0;i<m;i++){
+            adj[a[i][1]].push_back(a[i][0]);
         }
         
-        for(int i=0;i<n;i++)
+        vector<bool> visited(n,false),dfsvisited(n,false); 
+        
+        for(i=0;i<n;i++)
         {
-            if(!vis[i])
+            if(!visited[i])
             {
-                if(check(i,adj,vis,dfsvis)) return false;
+                if(checkCycle(i,adj,visited,dfsvisited)) return false;
             }
         }
+        
         return true;
     }
 };
