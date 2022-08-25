@@ -1,7 +1,32 @@
 class Solution {
 public:
     
-    bool bipartiteDFS(int node,vector<int> adj[],vector<int> &color)
+    bool bipartiteBFS(int node,vector<int> adj[],vector<int> &color)
+    {
+        queue<int> q;
+        q.push(node);
+        color[node]=1;
+        
+        while(!q.empty())
+        {
+            int src = q.front();
+            q.pop();
+            
+            for(auto child: adj[src])
+            {
+                if(color[child]==-1) 
+                {
+                    color[child]=1-color[src];
+                    q.push(child);
+                }
+                else if(color[child]==color[src]) return false;
+            }   
+        }
+        
+        return true;
+    }
+    
+    bool bipartiteDFS(int node,vector<int> adj[],vector<int> &color) // using DFS
     {
         if(color[node]==-1) color[node]=1;
         
@@ -24,21 +49,21 @@ public:
         
         vector<int> color(n,-1);
         
-        for(i=0;i<n;i++)
-        {
-            if(color[i]==-1)
-            {
-                if(!bipartiteDFS(i,adj,color)) return false;
-            }
-        }
-        
         // for(i=0;i<n;i++)
         // {
         //     if(color[i]==-1)
         //     {
-        //         if(!bipartiteBFS(i,adj,color)) return false;
+        //         if(!bipartiteDFS(i,adj,color)) return false;
         //     }
         // }
+        
+        for(i=0;i<n;i++)
+        {
+            if(color[i]==-1)
+            {
+                if(!bipartiteBFS(i,adj,color)) return false;
+            }
+        }
         
         return true;
     }
