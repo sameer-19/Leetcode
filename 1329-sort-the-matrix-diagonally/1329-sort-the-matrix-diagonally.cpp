@@ -1,26 +1,53 @@
 class Solution {
 public:
-    unordered_map<int, vector<int>> mp;
-vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
-    int m=mat.size();
-    int n=mat[0].size();
-    
-    for(int i=0;i<m;i++) {
-        for(int j=0;j<n;j++) {
-            mp[i-j].push_back(mat[i][j]);
+    vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+        
+        int m=mat.size(),n=mat[0].size(),i,j;
+        
+        for(i=0;i<n;i++)
+        {
+            vector<int> tp;
+            int x=0,y=i;
+            while(x<m and y<n)
+            {
+                tp.push_back(mat[x][y]);
+                x++;
+                y++;
+            }
+            
+            sort(tp.begin(),tp.end());
+            x=0;y=i;
+            int c=0;
+            while(x<m and y<n)
+            {
+                mat[x][y]=tp[c++];
+                x++;
+                y++;
+            }
         }
-    }
-    
-    for(int k=-(n-1);k<m;k++) {
-        sort(mp[k].begin(),mp[k].end());
-    }
-    
-    for(int i=m-1;i>=0;i--) {
-        for(int j=n-1;j>=0;j--) {
-            mat[i][j]=mp[i-j].back();
-            mp[i-j].pop_back();
+        
+        for(i=1;i<m;i++)
+        {
+            vector<int> tp;
+            int x=i,y=0;
+            while(x<m and y<n)
+            {
+                tp.push_back(mat[x][y]);
+                x++;
+                y++;
+            }
+            
+            sort(tp.begin(),tp.end());
+            x=i;y=0;
+            int c=0;
+            while(x<m and y<n)
+            {
+                mat[x][y]=tp[c++];
+                x++;
+                y++;
+            }
         }
+        
+        return mat;
     }
-    return mat;
-}
 };
