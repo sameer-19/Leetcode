@@ -1,11 +1,18 @@
 class Solution {
 public:
     vector<int> decompressRLElist(vector<int>& nums) {
-        vector<int> v;
-        for(int i=0;i<nums.size();i+=2)
+        vector<int> ans;
+        
+        int i,j,n=nums.size();
+        
+        for(i=0;i<n;i+=2)
         {
-            for(int j=0;j<nums[i];j++) v.push_back(nums[i+1]);
+            for(j=0;j<nums[i];j++)
+            {
+                ans.push_back(nums[i+1]);
+            }
         }
-        return v;
+        
+        return ans;
     }
 };
