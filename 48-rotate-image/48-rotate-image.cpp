@@ -1,24 +1,31 @@
 class Solution {
 public:
-    void rotate(vector<vector<int>>& mat) {
-        int n=mat[0].size();
+    void rotate(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        
         int i,j;
-        // first calculate transpose of a matrix
+        
         for(i=0;i<n;i++)
         {
             for(j=0;j<n;j++)
             {
                 if(i>j)
                 {
-                    swap(mat[i][j],mat[j][i]);
+                    swap(matrix[i][j],matrix[j][i]);
                 }
             }
-        }
-        // reverse each row once you found the transpose to get the rotation
+        }            
+    
         for(i=0;i<n;i++)
         {
-            for(j=0;j<n/2;j++) swap(mat[i][j],mat[i][n-j-1]);
+            j=0;
+            while(j<n/2)
+            {
+                swap(matrix[i][j],matrix[i][n-j-1]);
+                j++;
+            }
         }
-        return;    
+        
+        return;
     }
 };
