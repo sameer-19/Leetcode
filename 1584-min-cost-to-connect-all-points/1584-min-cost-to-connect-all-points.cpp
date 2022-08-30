@@ -1,57 +1,91 @@
 class Solution {
 public:
+    int parent[1005];
+    int rank[10005];
     
-    int getParent(vector<int>& parents, int idx){
-        
-        if(parents[idx]==idx){
-            return idx;
+    void makeSet()
+    {
+        int i;
+        for(i=0;i<1005;i++)
+        {
+            parent[i]=i;
+            rank[i]=0;
         }
-        
-        parents[idx] = getParent(parents, parents[parents[idx]]);
-        
-        return parents[idx];
-        
-        
     }
     
-    int minCostConnectPoints(vector<vector<int>>& points) {
+    int findParent(int node)
+    {
+        if(node==parent[node])
+        {
+            return node;
+        }
+        return parent[node] = findParent(parent[node]);
+    }
+    
+    void unionNodes(int u,int v)
+    {
+        u=findParent(u);
+        v=findParent(v);
         
-        int n = points.size();
-        vector<int> parents(n);        
-        iota(parents.begin(), parents.end(), 0);
-        int ans = 0;
-        int edges = 0;
-        priority_queue<vector<int>> pq;
-
-        for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                if(i!=j){
-                     pq.push({-1*(abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1])), i, j});
-                }
+        if(rank[u]<rank[v])
+        {
+            parent[u]=v;
+        }
+        else if(rank[u]>rank[v])
+        {
+            parent[v]=u;
+        }
+        else
+        {
+            parent[v]=u;
+            rank[u]++;
+        }   
+    }
+    
+    struct node{
+        int u;
+        int v;
+        int wt;
+    };
+    
+    static bool cmp(node a,node b)
+    {
+        return a.wt<b.wt;
+    }
+    
+    
+    
+    
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        makeSet();
+        
+        vector<node> edges;
+        
+        int i,j,n=points.size();
+        
+        for(i=0;i<n;i++)
+        {
+            for(j=i+1;j<n;j++)
+            {
+                int dist = abs(points[i][0]-points[j][0]) + abs(points[i][1]-points[j][1]);
+                edges.push_back({i,j,dist});
             }
         }
         
+        sort(edges.begin(),edges.end(),cmp);
         
-        while(edges!=n-1){
+        int ans=0,cnt=n-1;
+        
+        for(auto [u,v,wt]: edges)
+        {
+            if(cnt==0) break;
             
-            vector<int> edge = pq.top();
-            
-            int p1 = getParent(parents, edge[1]);
-            int p2 = getParent(parents, edge[2]);
-            
-            if(p1!=p2){
-                
-                ans += -1*edge[0];
-                
-                parents[p1] = p2;
-                
-                edges++;
-                
-                
+            if(findParent(u)!=findParent(v))
+            {
+                ans+=wt;
+                unionNodes(u,v);
+                cnt--;
             }
-            
-            pq.pop();
-            
         }
         
         return ans;
