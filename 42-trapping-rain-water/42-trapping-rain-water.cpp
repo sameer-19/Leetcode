@@ -21,6 +21,7 @@ public:
     int optimalSolution(vector<int> &h)
     {
         int i,n=h.size(),ans=0;
+        
         vector<int> prefMax(n,0),suffMax(n,0);
         prefMax[0]=h[0];
         suffMax[n-1]=h[n-1];
@@ -36,10 +37,36 @@ public:
         return ans;
     }
     
+    int optimal(vector<int> &h)
+    {
+        int n=h.size(),left,right;
+        left=0;right=n-1;
+        
+        int ans=0,lmax=0,rmax=0;
+        
+        while(left<right)
+        {
+            if(h[left]<=h[right])
+            {
+                lmax=max(lmax,h[left]);
+                ans+=lmax-h[left];
+                left++;
+            }
+            else
+            {
+                rmax=max(rmax,h[right]);
+                ans+=rmax-h[right];
+                right--;
+            }
+        }
+        
+        return ans;
+    }
+    
     int trap(vector<int>& height) {
         // return bruteForce(height);
-        
-        return optimalSolution(height);
+        // return optimalSolution(height);
+        return optimal(height);
         
     }
 };
