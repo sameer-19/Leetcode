@@ -9,46 +9,34 @@ public:
         
         int direction = 1;
         
+        vector<vector<bool>> visited(m+1,vector<bool> (n+1,false));
+        
         while(left<=right and top<=bottom)
         {
-            if(direction==1)
+            for(i=left;i<=right;i++)
             {
-                for(i=left;i<=right;i++)
-                {
-                    ans.push_back(matrix[top][i]);
-                }
-                direction=2;
-                top++;
+                if(!visited[top][i]) ans.push_back(matrix[top][i]),visited[top][i]=true;
             }
-            else if(direction==2)
+            top++;
+
+            for(i=top;i<=bottom;i++)
             {
-                for(i=top;i<=bottom;i++)
-                {
-                    ans.push_back(matrix[i][right]);
-                }
-                right--;
-                direction=3;
+                if(!visited[i][right]) ans.push_back(matrix[i][right]),visited[i][right]=true;
             }
-            else if(direction==3)
+            right--;
+
+            for(i=right;i>=left;i--)
             {
-                for(i=right;i>=left;i--)
-                {
-                    ans.push_back(matrix[bottom][i]);
-                }
-                bottom--;
-                direction=4;
+                if(!visited[bottom][i]) ans.push_back(matrix[bottom][i]),visited[bottom][i]=true;
             }
-            else
+            bottom--;
+
+            for(i=bottom;i>=top;i--)
             {
-                for(i=bottom;i>=top;i--)
-                {
-                    ans.push_back(matrix[i][left]);
-                }
-                
-                left++;
-                
-                direction=1;
+                if(!visited[i][left]) ans.push_back(matrix[i][left]),visited[i][left]=true;
             }
+
+            left++;
         }
         
         return ans;
