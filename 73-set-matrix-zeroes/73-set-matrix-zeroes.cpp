@@ -4,9 +4,7 @@ public:
         int m=matrix.size(),n=matrix[0].size();
         
         int i,j;
-        int flag=0;
-        
-        unordered_set<int> row,col;
+        int firstRow=0,firstCol=0;
         
         for(i=0;i<m;i++)
         {
@@ -14,20 +12,34 @@ public:
             {
                 if(matrix[i][j]==0)
                 {
-                    row.insert(i);
-                    col.insert(j);
+                    if(i==0) firstRow=1;
+                    if(j==0) firstCol=1;
+                    
+                    matrix[i][0]=0;
+                    matrix[0][j]=0;
                 }
             }
         }
         
-        for(auto x: row)
+        for(i=1;i<m;i++)
         {
-            for(j=0;j<n;j++) matrix[x][j]=0;
+            for(j=1;j<n;j++)
+            {
+                if(matrix[i][0]==0 || matrix[0][j]==0)
+                {
+                    matrix[i][j]=0;
+                }
+            }
         }
         
-        for(auto x: col)
+        if(firstRow)
         {
-            for(i=0;i<m;i++) matrix[i][x]=0;
+            for(j=0;j<n;j++) matrix[0][j]=0;
+        }
+        
+        if(firstCol)
+        {
+            for(i=0;i<m;i++) matrix[i][0]=0;
         }
         
         return;
