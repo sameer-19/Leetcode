@@ -1,39 +1,43 @@
-class Solution {
-public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> ans;
-        
-        sort(nums.begin(),nums.end());
-        
-        int n=nums.size(),i;
-        
-        for(i=0;i<n;i++)
+class Solution
+{
+    public:
+        vector<vector < int>> threeSum(vector<int> &nums)
         {
-            int target=-nums[i];
-            int front=i+1;
-            int back=n-1;
-            while(front<back)
+            vector<vector < int>> ans;
+
+            sort(nums.begin(), nums.end());
+
+            int i, j, k, n = nums.size();
+
+            for (i = 0; i < n; i++)
             {
-                int sum=nums[front]+nums[back];
+                int left = i + 1, right = n - 1;
+                int leftSum = -nums[i];
                 
-                if(sum<target) front++;
-                else if(sum>target) back--;
-                else  // sum==target
+                if(i>0)
                 {
-                    vector<int> triplet={ nums[i],nums[front],nums[back] };
-                    ans.push_back(triplet);
-                    
-                    // removing duplicates
-                    while(front<n && nums[front]==triplet[1]) front++;
-                    
-                    while(back>=0 && nums[back]==triplet[2]) back--;
+                    if(nums[i]==nums[i-1]) continue;
+                }
+                
+                while (left < right)
+                {
+                    int sum = nums[left] + nums[right];
+                    if (sum == leftSum)
+                    {
+                        ans.push_back({ nums[i],
+                            nums[left],
+                            nums[right] });
+                        int cur = nums[left];
+                        while (left < right and nums[left] == cur) left++;
+
+                        cur = nums[right];
+                        while (left < right and nums[right] == cur) right--;
+                    }
+                    else if (sum > leftSum) right--;
+                    else left++;
                 }
             }
-            
-            while(i+1<n && nums[i+1]==nums[i]) i++;
-            
+
+            return ans;
         }
-        
-        return ans;
-    }
 };
