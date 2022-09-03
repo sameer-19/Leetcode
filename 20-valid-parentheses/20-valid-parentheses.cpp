@@ -20,21 +20,16 @@ public:
                 if(stk.top()=='(')
                 {
                     if(s[i]!=')') return false;
-                    
-                    stk.pop();
                 }
                 else if(stk.top()=='[')
                 {
                     if(s[i]!=']') return false;
-                    
-                    stk.pop();
                 }
                 else
                 {
                     if(s[i]!='}') return false;
-                    
-                    stk.pop();
                 }
+                stk.pop();
             }
         }
         
