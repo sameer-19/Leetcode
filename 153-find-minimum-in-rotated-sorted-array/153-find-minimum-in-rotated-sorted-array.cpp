@@ -4,7 +4,7 @@ public:
         int n=nums.size();
         
         int l=0,r=n-1;
-        int ans=INT_MAX;
+        int ans=nums[0];
         
         while(l<=r)
         {
@@ -12,7 +12,7 @@ public:
             
             ans=min(ans,nums[mid]);
             
-            if(nums[mid]>=nums[l] and nums[mid]>=nums[r])
+            if(nums[mid]>nums[r])
             {
                 l=mid+1;
             }
