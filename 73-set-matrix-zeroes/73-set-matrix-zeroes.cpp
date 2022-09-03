@@ -6,7 +6,7 @@ public:
         int i,j;
         int flag=0;
         
-        set<int> row,col;
+        unordered_set<int> row,col;
         
         for(i=0;i<m;i++)
         {
