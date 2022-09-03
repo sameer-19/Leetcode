@@ -5,38 +5,48 @@ public:
         
         int m=matrix.size(),n=matrix[0].size(),i,j;
         
-        int top=0,left=0,right=n-1,bottom=m-1;
+        int dir=1;
         
-        int direction = 1;
+        int top=0,bottom=m-1,left=0,right=n-1;
         
-        vector<vector<bool>> visited(m+1,vector<bool> (n+1,false));
-        
-        while(left<=right and top<=bottom)
+        while(top<=bottom and left<=right)
         {
-            for(i=left;i<=right;i++)
+            if(dir==1)
             {
-                if(!visited[top][i]) ans.push_back(matrix[top][i]),visited[top][i]=true;
+                for(i=left;i<=right;i++)
+                {
+                    ans.push_back(matrix[top][i]);   
+                }
+                top++;
+                dir=2;
             }
-            top++;
-
-            for(i=top;i<=bottom;i++)
+            else if(dir==2)
             {
-                if(!visited[i][right]) ans.push_back(matrix[i][right]),visited[i][right]=true;
+                for(i=top;i<=bottom;i++)
+                {
+                    ans.push_back(matrix[i][right]);   
+                }
+                right--;
+                dir=3;
             }
-            right--;
-
-            for(i=right;i>=left;i--)
+            else if(dir==3)
             {
-                if(!visited[bottom][i]) ans.push_back(matrix[bottom][i]),visited[bottom][i]=true;
+                for(i=right;i>=left;i--)
+                {
+                    ans.push_back(matrix[bottom][i]);   
+                }
+                bottom--;
+                dir=4;
             }
-            bottom--;
-
-            for(i=bottom;i>=top;i--)
+            else
             {
-                if(!visited[i][left]) ans.push_back(matrix[i][left]),visited[i][left]=true;
+                for(i=bottom;i>=top;i--)
+                {
+                    ans.push_back(matrix[i][left]);
+                }
+                left++;
+                dir=1;
             }
-
-            left++;
         }
         
         return ans;
