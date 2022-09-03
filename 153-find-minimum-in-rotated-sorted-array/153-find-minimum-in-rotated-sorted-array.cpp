@@ -3,34 +3,23 @@ public:
     int findMin(vector<int>& nums) {
         int n=nums.size();
         
-        if(n==1) return nums[0];
+        int l=0,r=n-1;
+        int ans=INT_MAX;
         
-        int i,ans=INT_MAX;
-        
-        int left=0,right=n-1;
-        
-        while(left<=right)
+        while(l<=r)
         {
-            int mid=left+(right-left)/2;
+            int mid = l+(r-l)/2;
+            
             ans=min(ans,nums[mid]);
             
-            if(nums[mid]>nums[left] and nums[mid]>nums[right])
+            if(nums[mid]>=nums[l] and nums[mid]>=nums[r])
             {
-                left=mid+1;
+                l=mid+1;
             }
-            else if(nums[mid]>nums[left] and nums[mid]<nums[right])
-            {
-                right=mid-1;
+            else
+            {  
+               r=mid-1; 
             }
-            else if(nums[mid]<nums[left] and nums[mid]<nums[right])
-            {
-                right=mid-1;
-            }
-            else 
-            {
-                left=mid+1;
-            }
-            
         }
         
         return ans;
