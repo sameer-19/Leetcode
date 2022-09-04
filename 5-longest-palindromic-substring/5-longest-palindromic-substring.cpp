@@ -1,40 +1,50 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
-
-        int n=s.length();
-        int i,j,ans=0,id1=0,id2=0,left,right;
-        string result="";
+        string ans;
         
+        int n=s.length(),i,j,res=0;
         
-        // for considering the odd length strings
+        int left,right;
+        int leftIdx=-1,rightIdx=1;
+        
         for(i=0;i<n;i++)
         {
-            left=right=i;
-            while(left>=0 and right<n and s[left]==s[right]) left--,right++;
-            if(ans<right-left-1)
+            // even length
+            left=i; right=i+1;
+            while(left>=0 and right<n and s[left]==s[right])
             {
-                ans=right-left-1;
-                id1=left+1;
-                id2=right-1;
+                left--;
+                right++;
             }
-        }
-        // for considering the even length strings
-        for(i=0;i<n-1;i++)
-        {
-            left=right=i;
-            ++right;
-            while(left>=0 and right<n and s[left]==s[right]) left--,right++;
-            if(ans<right-left)
+            
+            if(res<right-left-1)
             {
-                ans=right-left;
-                id1=left+1;
-                id2=right-1;
+                leftIdx=left;
+                rightIdx=right;
+                res=right-left-1;
+            }
+            
+            // odd length
+            left=i-1;right=i+1;
+            while(left>=0 and right<n and s[left]==s[right])
+            {
+                left--;
+                right++;
+            }
+            
+            if(res<right-left-1)
+            {
+                leftIdx=left;
+                rightIdx=right;
+                res=right-left-1;
             }
         }
         
-        for(i=id1;i<=id2;i++) result+=s[i];
+        // cout<<leftIdx<<" "<<
+            
+        for(i=leftIdx+1;i<rightIdx;i++) ans+=s[i];
         
-        return result;
+        return ans;
     }
 };
