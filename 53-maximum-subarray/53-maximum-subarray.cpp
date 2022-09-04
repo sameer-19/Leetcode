@@ -7,7 +7,7 @@ public:
         {
             sum+=nums[i];
             
-            if(ans<sum) ans=sum;
+            ans=max(ans,sum);
             
             if(sum<0) sum=0;
         }
