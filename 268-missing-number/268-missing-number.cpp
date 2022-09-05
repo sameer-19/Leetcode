@@ -3,13 +3,15 @@ public:
     int missingNumber(vector<int>& nums) {
         int n=nums.size();
         
-        int sum = (n*(n+1))/2;
+        int xor1=nums[0];
         
-        for(int i=0;i<n;i++)
+        for(int i=1;i<n;i++)
         {
-            sum-=nums[i];
+            xor1^=nums[i];
         }
         
-        return sum;
+        for(int i=0;i<=n;i++) xor1^=i;
+        
+        return xor1;
     }
 };
