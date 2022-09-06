@@ -1,32 +1,51 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        int ans=1,n=nums.size(),cnt=0;
+        int n=nums.size(),i,cnt=0;
         
-        vector<int> result(n),pref(n+2),suff(n+2);
-        
-        int i=0,j=n+1;
-        pref[i++]=1; 
-        suff[n-1]=1;
-        
-        for(i=1;i<n;i++) 
-        {
-            pref[i]=pref[i-1]*nums[i-1];
-        }
-        for(i=n-2;i>=0;i--) suff[i]=suff[i+1]*nums[i+1];
+        vector<int> ans;
         
         for(i=0;i<n;i++)
         {
-            if(i==0) result[i]=suff[i];
-            else if(i==n-1) result[i]=pref[i];
-            else
+            if(nums[i]==0) cnt++;
+        }
+        
+        if(cnt>1)
+        {
+            for(i=0;i<n;i++)
             {
-                result[i]=pref[i]*suff[i];
+                ans.push_back(0);
+            }
+        }
+        else if(cnt==1)
+        {
+            int product=1;
+            for(i=0;i<n;i++)
+            {
+                if(nums[i]!=0) product*=nums[i];
+            }
+            for(i=0;i<n;i++)
+            {
+                if(nums[i]==0) ans.push_back(product);
+                else
+                {
+                    ans.push_back(0);
+                }
+            }
+        }
+        else
+        {
+            int product=1;
+            for(i=0;i<n;i++)
+            {
+                product*=nums[i];
+            }
+            for(i=0;i<n;i++)
+            {
+                ans.push_back(product/nums[i]);
             }
         }
         
-        // for(auto x: suff) cout<<x<<" ";
-        
-        return result;
+        return ans;
     }
 };
