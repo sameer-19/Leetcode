@@ -26,7 +26,7 @@ public:
         string result = "(" + to_string(root->val);
         // result+="(";
         
-        if(root->left || (!root->left and root->right))
+        if(root->left || root->right)
         result+=solve(root->left);
         
         if(root->right)
