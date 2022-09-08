@@ -26,7 +26,7 @@ public:
         return ans;
     }
     
-    int optimal(vector<int> &height)
+    int optimalFirst(vector<int> &height)
     {
         int n=height.size(),i,j,ans=0;
         int pre[n],suf[n];
@@ -50,9 +50,35 @@ public:
         return ans;
     }
     
-    int trap(vector<int>& height) {
+    int optimalSecond(vector<int> &h)
+    {
+        int n=h.size(),left,right;
+        left=0;right=n-1;
         
-        return optimal(height);
+        int ans=0,lmax=0,rmax=0;
+        
+        while(left<right)
+        {
+            if(h[left]<=h[right])
+            {
+                lmax=max(lmax,h[left]);
+                ans+=lmax-h[left];
+                left++;
+            }
+            else
+            {
+                rmax=max(rmax,h[right]);
+                ans+=rmax-h[right];
+                right--;
+            }
+        }
+        
+        return ans;
+    }
+    
+    int trap(vector<int>& height) {
+        return optimalSecond(height);
+        // return optimalFirst(height);
         // return bruteForce(height);
     }
 };
