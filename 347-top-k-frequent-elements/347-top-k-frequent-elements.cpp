@@ -12,32 +12,25 @@ class Solution
                 mp[nums[i]]++;
             }
 
-            priority_queue<pair<int, int>,vector<pair<int,int>>, greater<pair<int, int>>> pq;
-
-            for (auto x: mp)
-            {
-                if (pq.size() < k)
-                {
-                    pq.push({ x.second, x.first });
-                }
-                else
-                {
-                    if (pq.top().first < x.second)
-                    {
-                        pq.pop();
-                        pq.push({ x.second, x.first });
-                    }
-                }
+            vector<vector<int>> v(n+1);
+            
+            for(auto x: mp){
+                v[x.second].push_back(x.first);
             }
-
+            
             vector<int> ans;
-
-            while (!pq.empty())
+            
+            for(i=n;i>=0;i--)
             {
-                ans.push_back(pq.top().second);
-                pq.pop();
+                if(k==0) break;
+                for(auto x: v[i])
+                {
+                    if(k==0) break;
+                    ans.push_back(x);
+                    k--;
+                }
             }
-
+            
             return ans;
         }
 };
