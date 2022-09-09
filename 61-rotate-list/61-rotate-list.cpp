@@ -13,32 +13,41 @@ public:
     ListNode* rotateRight(ListNode* head, int k) {
         if(!head) return head;
         ListNode* tmp=head;
-        int n=0;
-        int i=0;
+        
+        int total=0;
+        
         while(tmp)
         {
-            n++;
+            total++;
             tmp=tmp->next;
         }
-        k=k%n;
-        vector<int> v(n);
+        
+        if(k%total==0) return head;
+        k%=total;
+        int cnt=total-k;
+        
         tmp=head;
+        while(tmp->next)
+        {
+            tmp=tmp->next;
+        }
+        tmp->next=head;
+        
+        tmp=head;
+        
         while(tmp)
         {
-            v[(k+i)%n]=tmp->val;
-            i++;
+            cnt--;
+            if(cnt==0)
+            {
+                head=tmp->next;
+                tmp->next=NULL;
+                break;
+            }
             tmp=tmp->next;
         }
-        ListNode* ans=new ListNode(v[0]);
-        tmp=ans;
-        i=1;
-        while(i<n)
-        {
-            ListNode* z=new ListNode(v[i]);
-            i++;
-            tmp->next=z;
-            tmp=tmp->next;
-        }
-        return ans;
+        
+        
+        return head;
     }
 };
