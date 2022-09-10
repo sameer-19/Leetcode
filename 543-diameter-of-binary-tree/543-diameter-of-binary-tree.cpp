@@ -15,7 +15,6 @@ class Solution
         int solve(TreeNode* root,int &ans)
         {
             if (!root) return 0;
-            if (!root->left and!root->right) return 1;
 
             int left = solve(root->left,ans);
             int right = solve(root->right,ans);
@@ -28,7 +27,6 @@ class Solution
         int diameterOfBinaryTree(TreeNode *root)
         {
             if (!root) return 0;
-            if (!root->left and!root->right) return 0;
             
             int ans=0;
             
