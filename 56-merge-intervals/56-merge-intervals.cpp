@@ -1,31 +1,33 @@
 class Solution {
 public:
+    
     vector<vector<int>> merge(vector<vector<int>>& a) {
         vector<vector<int>> ans;
-        if(a.size()==1) return a;
+        
+        int i,n=a.size();
         
         sort(a.begin(),a.end());
         
-        int start=a[0][0],end=a[0][1],i=1;
+        // ans.push_back(a[0]);
         
-        while(i<a.size())
+        int start=a[0][0],end=a[0][1];
+        
+        for(i=1;i<n;i++)
         {
-            if(end>=a[i][0]) end=max(end,a[i][1]);
-            else
+            if(end<a[i][0])
             {
-                vector<int> c;
-                c.push_back(start);
-                c.push_back(end);
+                ans.push_back({start,end});
                 start=a[i][0];
                 end=a[i][1];
-                ans.push_back(c);
             }
-            i++;
+            else
+            {
+                end=max(end,a[i][1]);
+            }
         }
-        vector<int> c;
-        c.push_back(start);
-        c.push_back(end);
-        ans.push_back(c);
+        
+        ans.push_back({start,end});
+        
         return ans;
     }
 };
