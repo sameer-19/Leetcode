@@ -11,8 +11,6 @@
  */
 class Solution {
 public:
-    bool flag=0;
-    
     bool check(TreeNode* root,TreeNode* sub)
     {
         if(!root and !sub) return true;
@@ -23,20 +21,23 @@ public:
         return check(root->left,sub->left)&check(root->right,sub->right);
     }
     
-    void dfs(TreeNode* root,TreeNode* subRoot)
+    void dfs(TreeNode* root,TreeNode* subRoot,bool &flag)
     {
         if(!root) return;
+        if(flag) return;
         
-        dfs(root->left,subRoot);
+        dfs(root->left,subRoot,flag);
         
         bool res = check(root,subRoot); 
         if(res) flag=1;
         
-        dfs(root->right,subRoot);
+        dfs(root->right,subRoot,flag);
     }
     
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        dfs(root,subRoot);
+        bool flag=0;
+        
+        dfs(root,subRoot,flag);
         
         return flag;
     }
