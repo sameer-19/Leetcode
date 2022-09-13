@@ -28,7 +28,6 @@ public:
     TreeNode* invertTree(TreeNode* root) {
         if(root==NULL) return NULL;
         
-        
         return solve(root);
     }
 };
