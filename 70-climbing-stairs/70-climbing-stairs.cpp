@@ -18,17 +18,17 @@ public:
     int climbStairs(int n) {
         if(n==1 || n==2) return n;
         int prev = 1, cur=2;
-        vector<int> dp(n+1,-1);
+//         vector<int> dp(n+1,-1);
         
-        return solve(n-1,n,dp);
+//         return solve(n-1,n,dp);
         
-//         for(int i=3;i<=n;i++)
-//         {
-//             int tmp = prev+cur;
-//             prev=cur;
-//             cur=tmp;
-//         }
+        for(int i=3;i<=n;i++)
+        {
+            int tmp = prev+cur;
+            prev=cur;
+            cur=tmp;
+        }
         
-//         return cur;
+        return cur;
     }
 };
