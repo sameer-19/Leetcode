@@ -9,7 +9,7 @@ public:
         
         for(i=0;i<n;i++)
         {
-            if(nums[i]%2==0) sum+=nums[i];
+            if((nums[i]&1)==0) sum+=nums[i];
         }
         
         for(i=0;i<q;i++)
@@ -17,7 +17,7 @@ public:
             int val = queries[i][0];
             int idx = queries[i][1];
             
-            if(nums[idx]%2==0)
+            if((nums[idx]&1)==0)
             {
                 sum-=nums[idx];
                 nums[idx]+=val;
