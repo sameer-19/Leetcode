@@ -20,14 +20,11 @@ public:
             if((nums[idx]&1)==0)
             {
                 sum-=nums[idx];
-                nums[idx]+=val;
-                if(nums[idx]%2==0) sum+=nums[idx];
             }
-            else
-            {
-                nums[idx]+=val;
-                if(nums[idx]%2==0) sum+=nums[idx];
-            }
+            
+            nums[idx]+=val;
+            if((nums[idx]&1)==0) sum+=nums[idx];
+            
             ans[i]=sum;
         }
         
