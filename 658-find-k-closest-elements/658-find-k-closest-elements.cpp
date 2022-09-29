@@ -1,26 +1,25 @@
 class Solution {
 public:
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
-        priority_queue<pair<int,int>> pq;
-        
-        int n=arr.size(),i,j;
-        
-        for(i=0;i<k;i++)
-        {
-            pq.push({abs(arr[i]-x),arr[i]});
-        }
-        
-        for(i=k;i<n;i++)
-        {
-            int diff = abs(arr[i]-x);
-            if(pq.top().first>diff)
-            {
-                pq.pop();
-                pq.push({diff,arr[i]});
-            }
-        }
+        int i,j,n=arr.size();
         
         vector<int> ans;
+        
+        priority_queue<pair<int,int>> pq;
+        
+        for(i=0;i<n;i++)
+        {
+            int distance = abs(arr[i]-x);
+            if(pq.empty() || pq.size()<k)
+            {
+                pq.push({distance,arr[i]});
+            }
+            else if(pq.top().first>distance)
+            {
+                pq.pop();
+                pq.push({distance,arr[i]});
+            }
+        }
         
         while(!pq.empty())
         {
