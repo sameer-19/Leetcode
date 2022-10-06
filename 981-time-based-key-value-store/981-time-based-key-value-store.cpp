@@ -1,8 +1,9 @@
 class TimeMap {
 public:
     map<string,vector<pair<string,int>>> mp;
+    
     TimeMap() {
-        mp.clear();
+        mp.clear();    
     }
     
     void set(string key, string value, int timestamp) {
@@ -10,7 +11,8 @@ public:
     }
     
     string get(string key, int timestamp) {
-        if(mp[key].size()>0){
+        if(mp.find(key)!=mp.end())
+        {
             string ans="";
             
             int left=0,right=mp[key].size()-1;
@@ -32,6 +34,7 @@ public:
             
             return ans;
         }
+        
         return "";
     }
 };
