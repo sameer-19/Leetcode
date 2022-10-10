@@ -3,9 +3,7 @@ public:
     string breakPalindrome(string s) {
         int n=s.length();
         
-        string ans="";
-        
-        if(n==1) return ans;
+        if(n==1) return "";
         
         vector<int> cnt(26,0);
         
@@ -17,7 +15,6 @@ public:
         if(cnt[0]==n/2)
         {
             s[n-1]='b';
-            ans=s;
         }
         else
         {
@@ -29,9 +26,8 @@ public:
                     break;
                 }
             }
-            ans=s;
         }
         
-        return ans;
+        return s;
     }
 };
