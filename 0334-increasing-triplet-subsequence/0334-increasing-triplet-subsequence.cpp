@@ -9,8 +9,12 @@ public:
                 if yes, return true,
                 else return false (after all traversal in the array)
                 Time - O(n), space - O(n)
-    Optimal2 - 
-    
+    Optimal2 - Take two numbers mn and mx for storing the min and max element. 
+               Now, traverse in the array-> if nums[i]<=mn, then mn=nums[i],
+               else if nums[i]<=mx, then mx=nums[i],
+               else return true
+               finally return false if true is not returned.
+               Time - O(n) , space - O(1)
     */
     
     bool increasingTriplet(vector<int>& nums) {
@@ -20,24 +24,16 @@ public:
         
         if(n<3) return false;
         
-        int prefixMin[n],suffixMax[n];
+        int mn=INT_MAX,mx=INT_MAX;
         
-        prefixMin[0]=nums[0];
-        suffixMax[n-1]=nums[n-1];
-        
-        for(i=1;i<n;i++)
+        for(i=0;i<n;i++)
         {
-            prefixMin[i]=min(prefixMin[i-1],nums[i]);
-        }
-        
-        for(i=n-2;i>=0;i--)
-        {
-            suffixMax[i]=max(suffixMax[i+1],nums[i]);
-        }
-        
-        for(i=1;i<n-1;i++)
-        {
-            if(nums[i]>prefixMin[i-1] and nums[i]<suffixMax[i+1]) return true;
+            if(nums[i]<=mn) mn=nums[i];
+            else if(nums[i]<=mx) mx=nums[i];
+            else
+            {
+                return true;
+            }
         }
         
         return false;
