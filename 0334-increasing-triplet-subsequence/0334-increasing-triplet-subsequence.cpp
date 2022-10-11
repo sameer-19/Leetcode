@@ -3,7 +3,13 @@ public:
     /*
     Brute- Three loops  - O(n^3)
     Better - Two loops + store the maximum element (form suffix max array) -  O(n^2)
-    Optimal1 - 
+    Optimal1 - Use two Arrays for storing the min and max of the whole array i.e.
+                Make prefixMin and suffixMax arrays storing the min and max of prefix and                   suffix of the array. Now, traverse from index 1 to n-2 and 
+                check if nums[i]>prefixMin[i-1] and nums[i]<suffixMax[i+1], 
+                if yes, return true,
+                else return false (after all traversal in the array)
+                Time - O(n), space - O(n)
+    Optimal2 - 
     
     */
     
