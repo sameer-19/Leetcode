@@ -12,7 +12,10 @@ public:
             int target = nums[i];
             
             if(sum>target)
-            ans = max(ans,sum+nums[i]);
+            {
+                ans = sum+nums[i];
+                break;
+            }
         }
         
         return ans;
