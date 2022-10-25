@@ -1,8 +1,8 @@
 class Solution {
 public:
     bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {
-        bool ok=true;
-        int n=word1.size(),m=word2.size(),i,j;
+        
+        int n=word1.size(),m=word2.size(),i;
         
         string s1="",s2="";
         
