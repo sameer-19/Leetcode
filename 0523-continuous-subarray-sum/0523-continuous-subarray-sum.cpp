@@ -4,7 +4,7 @@ public:
         int sum=0,n=nums.size(),i;
         if(n==1) return false;
         
-        map<int,int> mp;
+        unordered_map<int,int> mp;
         mp[0]=0;
         
         for(i=0;i<n;i++)
