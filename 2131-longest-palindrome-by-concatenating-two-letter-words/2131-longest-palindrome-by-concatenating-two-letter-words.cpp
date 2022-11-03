@@ -23,15 +23,15 @@ public:
                     {
                         f=1;
                         mp[s]--;
-                        if(mp[s]==0) mp.erase(s);
+                        // if(mp[s]==0) mp.erase(s);
                     }
-                    else 
+                    else if(mp[s]>0 and mp[words[i]]>0) 
                     {
                         ans+=2;
                         mp[s]--;
                         mp[words[i]]--;
-                        if(mp[s]==0) mp.erase(s);
-                        if(mp[words[i]]==0) mp.erase(words[i]);
+                        // if(mp[s]==0) mp.erase(s);
+                        // if(mp[words[i]]==0) mp.erase(words[i]);
                     }
                 }                
             }
