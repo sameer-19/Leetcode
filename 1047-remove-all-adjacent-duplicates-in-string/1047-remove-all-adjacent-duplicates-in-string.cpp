@@ -3,7 +3,7 @@ public:
     string removeDuplicates(string s) {
         stack<char> stk;
         
-        int i,j,n=s.length();
+        int i,n=s.length();
         
         for(i=0;i<n;i++)
         {
