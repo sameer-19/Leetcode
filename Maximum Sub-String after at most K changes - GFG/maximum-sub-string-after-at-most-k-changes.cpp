@@ -6,10 +6,7 @@ using namespace std;
 class Solution {
 	public:
 		int characterReplacement(string s, int k){
-		    int freq[26]={0};
-		    
 		    int n=s.length(),i,j;
-		    for(i=0;i<n;i++) freq[s[i]-'A']++;
 		    
 		    int ans=0;
 		    int t=k;
