@@ -1,19 +1,21 @@
 class Solution {
 public:
-    bool even(int n)
-    {
-        int cnt=0;
-        while(n>0) { cnt++; n/=10;}
-        return (cnt%2==0);
-    }
-    
     int findNumbers(vector<int>& nums) {
         int ans=0;
+        int n=nums.size();
         
-        for(auto x: nums)
+        for(int i=0;i<n;i++)
         {
-            if(even(x)) ans++;
+            int cnt=0;
+            while(nums[i]>0)
+            {
+                cnt++;
+                nums[i]/=10;
+            }
+            
+            if(cnt%2==0) ans++;
         }
+        
         return ans;
     }
 };
