@@ -13,6 +13,6 @@ public:
             if(abs(points[i][1]-points[i-1][1])!=mn) ans+=abs(points[i][1]-points[i-1][1])-mn;
         }
         
-        return ans;
+        return ans;   
     }
 };
