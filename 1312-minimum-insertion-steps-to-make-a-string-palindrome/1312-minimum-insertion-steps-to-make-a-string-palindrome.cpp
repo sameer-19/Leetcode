@@ -19,12 +19,14 @@ public:
         return prev[len2];
     }
     
+    
     int minInsertions(string s) {
         int len = s.length();
-        
+        // reverse of the given string    
         string t=s;
         reverse(t.begin(),t.end());
-        
+        // find the lcs (longest common subsequence) of given and reversed string 
+        // then required number of insertions are len(s)-lcs(s,t).
         return len-lcs(s,t);
     }
 };
