@@ -1,61 +1,43 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
+        int n=nums.size();
+        
         vector<vector<int>> ans;
         
-        set<vector<int>> s;
-        
-        int n=nums.size();
+        if(n<3) return ans;
         
         sort(nums.begin(),nums.end());
         
-        unordered_map<int,int> mp;
-        
         for(int i=0;i<n;i++)
         {
-            mp[nums[i]]++;
-        }
-        
-        for(int i=0;i<n;i++)
-        {
-            if(i>0 and nums[i]==nums[i-1]) continue;
-            for(int j=i+1;j<n;j++)
+            int target = -nums[i];
+            
+            if(i>0)
             {
-                if(j>i+1 and nums[j]==nums[j-1]) continue;
-                int sum=nums[i]+nums[j];
-                int target = -sum;
-                
-                if(mp[target]>0)
+                if(nums[i]==nums[i-1]) continue;
+            }
+            
+            int left=i+1,right=n-1;
+            
+            while(left<right)
+            {
+                int sum=nums[left]+nums[right];
+                if(sum==target)
                 {
-                    if(target!=nums[i] and target!=nums[j]) 
-                    {
-                        vector<int> t = {nums[i],nums[j],target};
-                        sort(t.begin(),t.end());
-                        s.insert(t);
-                    }
-                    else if(target==nums[i] and target==nums[j])
-                    {
-                        if(mp[target]>2) 
-                        {
-                            vector<int> t = {nums[i],nums[j],target};
-                            sort(t.begin(),t.end());
-                            s.insert(t);
-                        }
-                    }
-                    else if((target==nums[i] and target!=nums[j]) || (target!=nums[i] and target==nums[j]))
-                    {
-                        if(mp[target]>1) 
-                        {
-                            vector<int> t = {nums[i],nums[j],target};
-                            sort(t.begin(),t.end());
-                            s.insert(t);
-                        }
-                    }
+                    ans.push_back({nums[i],nums[left],nums[right]});
+                    left++;
+                    while(left<right and nums[left-1]==nums[left]) left++;
+                    right--;
+                    while(left<right and nums[right+1]==nums[right]) right--;
                 }
+                else if(sum<target)
+                {
+                    left++;
+                }
+                else right--;
             }
         }
-        
-        for(auto x: s) ans.push_back(x);
         
         return ans;
     }
