@@ -2,13 +2,14 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> ans;
+        
         set<vector<int>> s;
         
         int n=nums.size();
         
         sort(nums.begin(),nums.end());
         
-        map<int,int> mp;
+        unordered_map<int,int> mp;
         
         for(int i=0;i<n;i++)
         {
