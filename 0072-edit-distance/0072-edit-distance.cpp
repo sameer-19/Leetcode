@@ -29,9 +29,25 @@ public:
         
         // return recursion(n-1,m-1,word1,word2);
         
-        vector<vector<int>> dp(n+1, vector<int> (m+1,-1));
+        // vector<vector<int>> dp(n+1, vector<int> (m+1,-1));
         // Memoization
-        return memo(n,m,word1,word2,dp);
+        // return memo(n,m,word1,word2,dp);
         
+        // Tabulation
+        vector<vector<int>> dp(n+1, vector<int> (m+1,0));
+        
+        for(int j=0;j<=m;j++) dp[0][j] = j;
+        for(int i=0;i<=n;i++) dp[i][0] = i;
+        
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(word1[i-1]==word2[j-1]) dp[i][j] = 0 + dp[i-1][j-1];
+                else dp[i][j] = 1+ min({dp[i][j-1], dp[i-1][j], dp[i-1][j-1]});
+            }
+        }
+         
+        return dp[n][m];
     }
 };
