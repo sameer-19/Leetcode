@@ -21,7 +21,27 @@ public:
     
     int combinationSum4(vector<int>& nums, int target) {
         int sum = 0, n = nums.size();
-        vector<long> dp(target+1, -1);
-        return solve(n,nums,target,dp);
+        // vector<long> dp(target+1, -1);
+        // return solve(n,nums,target,dp);
+        
+        vector<unsigned int> dp(target+1, 0);
+        dp[0] = 1;
+        
+        for(int targ=1;targ<=target;targ++)
+        {
+            unsigned int total = 0;
+        
+            for(int i=0;i<n;i++)
+            {
+                if(nums[i]<=targ) 
+                {
+                    total+=dp[targ-nums[i]];
+                }
+            }
+
+            dp[targ] = total;
+        }
+        
+        return dp[target];
     }
 };
