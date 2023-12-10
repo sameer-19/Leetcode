@@ -11,41 +11,53 @@
  */
 class Solution {
 public:
-    string solve(TreeNode* root)
+    void solve(TreeNode* root,string &s)
     {
-        if(!root) return "()";
+        if(!root) 
+        {
+            return;
+        }
         
         if(!root->left and !root->right)
         {
-            string s="(";
-            s+=to_string(root->val);
-            s+=")";
-            return s;
+            s+='('+to_string(root->val)+')';
+            return;
         }
         
-        string result = "(" + to_string(root->val);
-        // result+="(";
+        s+='(';
         
-        if(root->left || root->right)
-        result+=solve(root->left);
+        s+=to_string(root->val);
         
-        if(root->right)
-        result+=solve(root->right);
+        if(root->left)
+        {
+            solve(root->left,s);
+        }
+        else
+        {
+            s+="()";
+        }
         
-        result+=")";
+        solve(root->right,s);
         
-        return result;
+        s+=')';
     }
     
     string tree2str(TreeNode* root) {
         string ans="";
         ans+=to_string(root->val);
         
-        if(root->left || root->right)
-        ans+=solve(root->left);
+        if(!root->left and !root->right)
+        {
+            return ans;
+        }
         
-        if(root->right)
-        ans+=solve(root->right);
+        if(root->left) solve(root->left,ans);
+        else
+        {
+            ans+="()";
+        }
+        
+        solve(root->right,ans);
         return ans;
     }
 };
