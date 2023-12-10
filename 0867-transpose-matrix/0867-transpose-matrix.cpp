@@ -1,12 +1,5 @@
 class Solution {
 public:
-    void swap(int &a,int &b)
-    {
-        int c = a;
-        a = b;
-        b = c;
-    }
-    
     vector<vector<int>> transpose(vector<vector<int>>& matrix) {
         int m= matrix.size();
         int n= matrix[0].size();
