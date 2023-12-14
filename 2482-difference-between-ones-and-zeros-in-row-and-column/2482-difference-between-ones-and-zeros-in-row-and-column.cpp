@@ -31,7 +31,8 @@ public:
         {
             for(int j=0;j<n;j++)
             {
-                int result = rows[i] + cols[j] - (m-rows[i]) - (n-cols[j]);
+                int result = 2*(rows[i]+cols[j])- (m+n); 
+            // 2* (rows[i]+cols[j])- (m+n) == rows[i] + cols[j] - (m-rows[i]) - (n-cols[j]);
                 ans[i][j] = result;
             }
         }
