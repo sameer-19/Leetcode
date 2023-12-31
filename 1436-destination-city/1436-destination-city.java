@@ -1,17 +1,18 @@
 class Solution {
     public String destCity(List<List<String>> paths) {
-        Map<String,String> mp= new HashMap<>();
+        Set<String> outgoingSet= new HashSet<>();
         for(List<String> path: paths)
         {
             System.out.println(path);
-            mp.put(path.get(0),path.get(1));
+            outgoingSet.add(path.get(0));
         }
         
-        for(Map.Entry<String,String> entry : mp.entrySet())
+        for(int i=0;i<paths.size();i++)
         {
-            if(!mp.containsKey(entry.getValue()))
+            String result = paths.get(i).get(1);
+            if(!outgoingSet.contains(result))
             {
-                return entry.getValue();
+                return result;
             }
         }
         
