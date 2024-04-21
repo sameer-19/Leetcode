@@ -1,39 +1,32 @@
-class Solution {
-public:
-    bool dfs(int src,int dest,vector<int> adj[],vector<bool> &visited)
-    {
-        if(src==dest) 
-        {
-            visited[dest] = true;
-            return true;
-        }
-        
-        visited[src] = true;
-        
-        for(auto x: adj[src])
-        {
-            if(!visited[x])
+class Solution
+{
+    public:
+        bool solve(int source, vector<bool> &visited, map<int, vector< int>> &mp, int destination) {
+            if(visited[source]) return false;
+            
+            visited[source] = true;
+            
+            for(auto node: mp[source])
             {
-                if(dfs(x,dest,adj,visited)) return true;
+                if(node==destination) return true;
+                if(solve(node, visited, mp, destination)) return true;
             }
+            
+            return false;
         }
-        
-        return false;
-    }
-    
-    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-        vector<int> adj[n];
-        
-        for(int i=0;i<edges.size();i++)
+
+    bool validPath(int n, vector<vector < int>> &edges, int source, int destination)
+    {
+        if(n==1) return true;
+        vector<bool> visited(n, false);
+        map<int, vector < int>> mp;
+
+        for (int i = 0; i < edges.size(); i++)
         {
-            adj[edges[i][0]].push_back(edges[i][1]);
-            adj[edges[i][1]].push_back(edges[i][0]);
+            mp[edges[i][0]].push_back(edges[i][1]);
+            mp[edges[i][1]].push_back(edges[i][0]);
         }
-        
-        vector<bool> visited(n,false);
-        
-        if(dfs(source,destination,adj,visited)) return true;
-        
-        return false;
+
+        return solve(source, visited, mp, destination);
     }
 };
