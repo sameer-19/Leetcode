@@ -41,6 +41,7 @@ public:
     }
     
     vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
+        if(!root) return {};
         map<int,int> deleteNodes;
         for(auto node: to_delete) {
             deleteNodes[node]=1;
