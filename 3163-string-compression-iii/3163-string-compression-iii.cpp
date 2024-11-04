@@ -1,7 +1,7 @@
 class Solution
 {
     public:
-        void appendCharacter(string &ans, int count, char ch, map<int, char> mp) {
+        void appendCharacter(string &ans, int &count, char &ch, map<int, char> &mp) {
             ans+=mp[count];
             ans+=ch;
             return;
