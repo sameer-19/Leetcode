@@ -1,7 +1,7 @@
 class Solution
 {
     public:
-        void appendCharacter(string &ans, int &count, char &ch, map<int, char> &mp) {
+        void appendCharacter(string &ans, int &count, char &ch, unordered_map<int, char> &mp) {
             ans+=mp[count];
             ans+=ch;
             return;
@@ -9,8 +9,7 @@ class Solution
     
         string compressedString(string word)
         {
-            map<int, char> mp;
-            mp[0] = '0';
+            unordered_map<int, char> mp;
             mp[1] = '1';
             mp[2] = '2';
             mp[3] = '3';
