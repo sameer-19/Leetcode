@@ -10,15 +10,8 @@ public:
             for(int j=0;j<matrix[0].size();j++)
             {
                 countOfNegatives += matrix[i][j] < 0;
-                mn= min(mn, abs(matrix[i][j]));
-            }
-        }
-            
-        for(int i=0;i<matrix.size();i++)
-        {
-            for(int j=0;j<matrix[0].size();j++)
-            {
                 ans+=abs(matrix[i][j]);
+                mn= min(mn, abs(matrix[i][j]));
             }
         }
         
