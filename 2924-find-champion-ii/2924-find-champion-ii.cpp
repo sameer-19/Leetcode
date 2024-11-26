@@ -3,23 +3,22 @@ public:
     int findChampion(int n, vector<vector<int>>& edges) {
         int i = 0;
         
-        vector<int> outgoing(n,0), incoming(n,0);
+        vector<int> incoming(n,0);
         
         for(auto x: edges)
         {
-            outgoing[x[0]]++;
             incoming[x[1]]++;
         }
         
-        vector<vector<int>> temp;
+        vector<int> temp;
         
         while(i<n)
         {
-            if(incoming[i]==0) temp.push_back({i,outgoing[i]});
+            if(incoming[i]==0) temp.push_back(i);
             i++;
         }
         
-        if(temp.size()==1) return temp[0][0];
+        if(temp.size()==1) return temp[0];
         
         return -1;
     }
