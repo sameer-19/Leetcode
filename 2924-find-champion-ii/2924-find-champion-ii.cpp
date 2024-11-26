@@ -15,8 +15,7 @@ public:
         
         while(i<n)
         {
-            if(incoming[i]==0 and outgoing[i]>0) temp.push_back({i,outgoing[i]});
-            else if(incoming[i]==0 and outgoing[i]==0) temp.push_back({i, outgoing[i]});
+            if(incoming[i]==0) temp.push_back({i,outgoing[i]});
             i++;
         }
         
