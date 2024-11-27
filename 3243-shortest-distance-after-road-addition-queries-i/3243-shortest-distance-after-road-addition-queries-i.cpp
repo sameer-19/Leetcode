@@ -31,7 +31,7 @@ class Solution
                 distance++;
             }
 
-            return distance;
+            return -1;
         }
 
     vector<int> shortestDistanceAfterQueries(int n, vector<vector < int>> &queries)
