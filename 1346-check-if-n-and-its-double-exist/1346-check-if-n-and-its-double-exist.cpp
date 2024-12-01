@@ -1,14 +1,25 @@
 class Solution {
 public:
     bool checkIfExist(vector<int>& arr) {
-        unordered_set<int> s;
+     map<int, int> mp;
         
-        for(auto x: arr)
+        for(auto x: arr) mp[x]++;
+        
+        for(auto x: mp)
         {
-            if(s.count(2*x)>0 || ((x%2==0) && s.count(x/2)>0)) return true;
-            s.insert(x);
+            int element = 2*(x.first);
+            
+            if(mp.find(element)!=mp.end())
+            {
+                if(element == x.first) 
+                {
+                    if(mp[element]>1) return true;
+                }
+                else
+                return true;
+            }
         }
         
-        return false;
+        return false;   
     }
 };
