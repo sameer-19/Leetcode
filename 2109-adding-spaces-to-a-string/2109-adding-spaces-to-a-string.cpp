@@ -2,18 +2,14 @@ class Solution {
 public:
     string addSpaces(string s, vector<int>& spaces) {
         string ans = "";
-        map<int,int> mp;
-        
-        for(auto &x: spaces)
-        {
-            mp[x]++;
-        }
+        int spaceIndex = 0;
         
         for(int i=0;i<s.size();i++)
         {
-            if(mp.find(i)!=mp.end())
+            if(spaceIndex<spaces.size() && i==spaces[spaceIndex])
             {
                 ans+=' ';
+                spaceIndex++;
             }
             ans+=s[i];
         }
