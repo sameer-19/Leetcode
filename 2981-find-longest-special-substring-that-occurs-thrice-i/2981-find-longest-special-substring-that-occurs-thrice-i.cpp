@@ -1,27 +1,26 @@
 class Solution {
 public:
-    bool check(int i, int j, int k, string s)
+    bool check(int i, int j, int &k, string &s)
     {
         while(i<=j and s[i]==s[j]) i++;
         return i>j;
     }
     
-    bool solve(string s, int length)
+    bool solve(string &s, int &length)
     {
-        cout<<length<<" ";
-        int i = length-1;
-        unordered_map<string, int> mp;
+        int i = length-1, n = s.size();
+        unordered_map<char, int> mp;
         
-        while(i<s.size())
+        while(i<n)
         {
             if(check(i-length+1, i, length, s)) 
             {
-                mp[s.substr(i-length+1, length)]++;
+                mp[s[i-length+1]]++;
             }
             i++;
         }
         
-        for(auto x: mp)
+        for(auto &x: mp)
         {
             if(x.second>=3)
             {
@@ -50,17 +49,6 @@ public:
             }
             else right = mid-1;
         }
-        
-        
-        
-//         for(auto x: mp)
-//         {
-//             if(x.second>=3)
-//             {
-//                 int strLength = x.first.length();
-//                 ans = max(ans, strLength);
-//             }
-//         }
         
         return ans;
     }
