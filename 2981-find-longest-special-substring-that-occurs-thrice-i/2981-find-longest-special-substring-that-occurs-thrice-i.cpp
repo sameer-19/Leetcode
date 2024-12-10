@@ -1,32 +1,66 @@
 class Solution {
 public:
-    int maximumLength(string s) {
-        int ans = -1, n = s.length();
+    bool check(int i, int j, int k, string s)
+    {
+        while(i<=j and s[i]==s[j]) i++;
+        return i>j;
+    }
+    
+    bool solve(string s, int length)
+    {
+        cout<<length<<" ";
+        int i = length-1;
+        unordered_map<string, int> mp;
         
-        map<string, int> mp;
-        
-        for(int i=0;i<n;i++)
+        while(i<s.size())
         {
-            string res = "";
-            res+=s[i];
-            mp[res]++;
-            int j = i+1;
-            while(j<n and s[j]==s[i])
+            if(check(i-length+1, i, length, s)) 
             {
-                res+=s[j];
-                j++;
-                mp[res]++;
+                mp[s.substr(i-length+1, length)]++;
             }
+            i++;
         }
         
         for(auto x: mp)
         {
             if(x.second>=3)
             {
-                int strLength = x.first.length();
-                ans = max(ans, strLength);
+                return true;
             }
         }
+        
+        return false;
+    }
+    
+    int maximumLength(string s) {
+        int ans = -1, n = s.length();
+        
+        int left = 1, right = n;
+        
+        while(left<=right)
+        {
+            int mid = left + (right-left)/2;
+            
+            bool res = solve(s, mid);
+            
+            if(res) 
+            {
+                ans = mid;
+                left = mid+1;
+            }
+            else right = mid-1;
+        }
+        
+        
+        
+//         for(auto x: mp)
+//         {
+//             if(x.second>=3)
+//             {
+//                 int strLength = x.first.length();
+//                 ans = max(ans, strLength);
+//             }
+//         }
         
         return ans;
     }
