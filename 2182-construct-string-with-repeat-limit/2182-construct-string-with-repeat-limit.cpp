@@ -22,7 +22,7 @@ public:
                 {
                     j=i-1;
                     while(j>=0 and a[j]==0) j--;
-                    if(j>=0 and a[j]>0)
+                    if(j>=0)
                     {
                         char ch = 'a'+j;
                         a[j]--;
